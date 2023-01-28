@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Attr 类型</title>
+    </head>
+    <body>
+        <div>我是一个div</div>
+        <script src="../query.js"></script>
+        <script type="text/javascript">
+            const divEl = document.getElementsByTagName('div')[0];
+            const attr = document.createAttribute('align');
+            console.log('节点类型:', attr.nodeType); // 节点类型 2
+            console.log('节点名:', attr.nodeName); // 节点类型 2
+            console.log('节点值:', attr.nodeValue); // 节点类型 2
+            console.log('父节点:', attr.parentNode); // 节点类型 2
+            // 注意 attr节点在html中不支持子节点   xml支持子节点有：Text 和 EntityReference
+            console.log('isDefault:', attr.specified);
+            
+            // 设置属性 
+            attr.value = 'right'
+            divEl.setAttributeNode(attr)
+            // 获取属性
+            console.log('元素属性:', divEl.getAttributeNode("align").value)
+            // 删除属性
+            // divEl.removeAttributeNode(attr)
+
+            // 推荐使用
+            divEl.setAttribute('id', 'myDiv')
+            console.log('直接设置的元素属性' ,divEl.getAttribute('id'))
+            divEl.removeAttribute('id')
+        </script>
+    </body>
+</html>

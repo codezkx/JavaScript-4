@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DocumentFragment 类型</title>
+    </head>
+    <body>
+        <ul id="list"></ul>
+        <script src="../query.js"></script>
+        <script type="text/javascript">
+            const ulEl = document.getElementById('list');
+            const fragment = document.createDocumentFragment();
+            console.log('节点类型:', fragment.nodeType); // 节点类型11
+            console.log('节点名:', fragment.nodeName); // 节点名#document-fragment
+            console.log('节点value:', fragment.nodeValue);
+            console.log('节点父节点:', fragment.parentNode);
+
+            // 当文档中的元素添加到文档片段(createDocumentFragment)后，改元素会从文档树中移除
+            // fragment.appendChild(ulEl)
+            for (let i = 0; i < 3; i++) {
+                const li = document.createElement('li');
+                li.appendChild(document.createTextNode(`Item ${i}`));
+                fragment.appendChild(li);
+            };
+            ulEl.append(fragment); // 把文档片段(DocumentFragment)添加到文档树中并渲染
+        </script>
+    </body>
+</html>

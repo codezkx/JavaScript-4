@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>动态脚本</title>
+    </head>
+    <body>
+        <script src="../query.js"></script>
+        <script type="text/javascript">
+            //  注意innerHTML创建的script脚本元素是不会执行的。
+            // 动态引入脚本
+            createScritpEl('foo.js', '此参数为兼容IE浏览器')
+            function createScritpEl(src, code) {
+                const scriptEl = document.createElement('script');
+                scriptEl.type = 'text/javascript';
+                scriptEl.src = src;
+                try {
+                    scriptEl.appendChild(document.createTextNode(code));
+                } catch(e) {
+                    // 此属性为兼容IE浏览器
+                    scriptEl.text = code;
+                }
+                document.body.appendChild(scriptEl);
+            };
+        </script>
+    </body>
+</html>
