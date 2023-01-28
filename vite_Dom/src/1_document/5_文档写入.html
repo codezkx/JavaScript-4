@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>文档写入</title>
+    </head>
+    <body>
+        <p>我是元素</p>
+        <script type="text/javascript">
+            document.open() // 打开输出流
+            // document.write("<strong>" + (new Date).toString() + "<strong>") // 向档中写入内容
+            // document.writeln(`<strong>${(new Date).toString()}<strong>`) //  向文档中写入内容 在末尾添加一个换行符
+            // -----------------列子---------------
+            document.write(`<script type="text/javascript" src="5_documentWrite.js"><\/script>`) // 写入文件
+            
+            // 如果是在页面加载完之后再调用 document.write()，则输出的内容会重写整个页面   之前的元素都会被覆盖掉
+            window.onload = function() {
+                document.close() // 关闭输出流
+                document.write('Hello world!')
+            }
+            
+        </script>
+    </body>
+</html>

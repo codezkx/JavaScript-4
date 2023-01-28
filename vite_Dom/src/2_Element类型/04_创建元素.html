@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>文档写入</title>
+    </head>
+    <body>
+        <!-- contenteditable 元素可编辑 -->
+        <div class="text data" title="div" lang="zh-en" align="left" id="myDiv" contenteditable="true">
+            我是div
+            <span id="myId">我是span</span>
+        </div>
+        <script type="text/javascript">
+            const h1 = document.createElement('h1');
+            h1.id = 'myH1';
+            h1.classList = ['text', 'red'];
+            h1.innerText = 'h1';
+            h1.innerHTML = 'h1元素';
+            document.body.appendChild(h1); // body末尾添加一个子元素
+            // const div = document.getElementById('myDiv');
+        //    document.body.insertBefore(h1, div); // 插入到div元素前
+            // const span = document.getElementById('myId');
+            // div.replaceChild(h1, span); // 替换div下第一个子元素
+
+        </script>
+    </body>
+</html>

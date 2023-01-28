@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>文档写入</title>
+    </head>
+    <body>
+        <!-- contenteditable 元素可编辑 -->
+        <div class="text data" title="div" lang="zh-en" align="left" id="myDiv" contenteditable>我是div</div>
+        <script type="text/javascript">
+            const div = document.getElementById('myDiv')
+            // div.setAttribute('id', 'setDiv') // 设置属性
+            // div.removeAttribute('id') // 删除属性
+            console.log(div.getAttribute('class')) // 获取数据
+            // ------------列子------------------
+            div.setAttribute('data-text', '我是数据')
+            console.log(div.getAttribute('data-text'))
+
+        </script>
+    </body>
+</html>

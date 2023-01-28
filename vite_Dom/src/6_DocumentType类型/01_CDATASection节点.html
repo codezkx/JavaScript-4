@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DocumentType 类型</title>
+    </head>
+    <body>
+        <select id="selectStatus" name="status" size="1" style="color:#223322;font-family:Tahoma;font-size:14px;width:75px;">
+            <option value="null" selected=""></option>
+            <option value="Y">จัด</option>
+            <option value="S">ส่ง</option>
+            <option value="N">ไม่จัด</option>
+            <option value="C">ยกเลิก</option>
+     </select>
+        <script src="../query.js"></script>
+        <script type="text/javascript">
+            const doctype = document.doctype
+            console.log(doctype)
+            console.log(doctype.nodeType)
+            console.log(doctype.nodeName)
+            console.log(doctype.nodeValue)
+            console.log(doctype.parentNode)
+
+            const selectEl = document.getElementById('selectStatus')
+            console.log(typeof selectEl.value, 'selectEl')
+            selectEl.value = 'Y'
+        </script>
+    </body>
+</html>

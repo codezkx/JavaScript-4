@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>文档写入</title>
+    </head>
+    <body>
+        <!-- contenteditable 元素可编辑 -->
+        <div class="text data" title="div" lang="zh-en" align="left" id="myDiv" contenteditable="true">我是div</div>
+        <script type="text/javascript">
+           const div = document.getElementById('myDiv')
+        //    div.attributes.removeNamedItem('id') // 删除div.attributes NamedNodeMap 对象中的id 元素属性id也删除
+            // div.attributes.setNamedItem('id') // 设置属性
+            // console.log(div.attributes.getNamedItem('id')) // 获取属性 字符串的key=value形式
+            console.log(div.attributes)
+            //    获取元素所有以设置的属性
+            const outputAttributes = (element) => {
+                let paire = [];
+                for (let i = 0, len = element.attributes.length; len > i; i++) {
+                    const attributes = element.attributes[i];
+                    paire.push(`${attributes.nodeName}=${attributes.nodeValue}`);
+                }
+                return paire;
+            }
+            console.log(outputAttributes(div), 'outputAttributes(div)')
+            /*
+            这个函数使用数组存储每个名/值对，迭代完所有属性后，再将这些名/值对用空格拼接在一起。（这
+个技术常用于序列化为长字符串。）这个函数中的 for 循环使用 attributes.length 属性迭代每个属
+性，将每个属性的名字和值输出为字符串。不同浏览器返回的 attributes 中的属性顺序也可能不一样。
+HTML 或 XML 代码中属性出现的顺序不一定与 attributes 中的顺序一致。
+            */
+        </script>
+    </body>
+</html>

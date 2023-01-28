@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <iframe src="./documentNode1.html" frameborder="0"></iframe>
+
+    <script type="module" src="/main.js"></script>
+    <script>
+      console.log(document) // 整个html文档
+      console.log(document.nodeType) // 节点类型 9
+      console.log(document.nodeName) // 节点name #document
+      console.log(document.nodeValue) // null
+      console.log(document.parentNode) // null
+      console.log(document.ownerDocument) // null
+      /*    ----- docuemnt访问子节点 ------    */
+      console.log(document.documentElement) // 直接访问html元素 优于childNodes
+      console.log(document.childNodes) // 访问html元素  [<!DOCTYPE html>, html]
+      console.log(document.body)
+      console.log(document.doctype) // <!DOCTYPE html>
+      console.log(document.head)
+      /*   --------  文档信息 ----------------   */
+      console.log(document.title)
+      document.title = 'Vite Apps'
+      console.log(document.title)
+      console.log(document.URL) // 获取当前文档的URL
+      console.log(document.domain) // 获取文档域名
+      console.log(document.referrer) // 获取来源
+      console.log(document.body.children[1]) // 获取除文本节点 node,   childNodes获取所有node
+
+    </script>
+  </body>
+</html>

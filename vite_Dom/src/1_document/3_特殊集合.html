@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="../assets/img/1.jpeg" name="logo1">1</a>
+    <a href="../assets/img/1.jpeg" name="logo2">2</a>
+    <form action=""></form>
+    <script>
+        const ancheors = document.anchors // 获取带name的a标签
+        console.log(ancheors, 'ancheors') // HTMLCollection(2) [a, a, logo1: a, logo2: a]
+        const form = document.forms // 获取文档中的所有form标签
+        console.log(form, 'form') // HTMLCollection [form]
+        const links = document.links // 获取文档带href的a标签
+        console.log(links)
+    </script>
+</body>
+</html>

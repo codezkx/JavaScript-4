@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>文档写入</title>
+    </head>
+    <body>
+        <ul id="myList">
+            <!-- 这是一条注释 -->
+            <li>item 1</li>
+            <li>item 2</li>
+            <li>item 3</li>
+        </ul>
+        <script src="../query.js"></script>
+        <!-- <script src="../jquery-1.8.3.js"></script> -->
+        <script type="text/javascript">
+            const ul = $('#myList')[0]
+            const comment = ul.childNodes[1] // 注释节点
+            console.log(comment.nodeType) // 节点类型 8
+            console.log(comment.nodeValue) // 节点内容
+            console.log(comment.nodeName) // 节点名
+            console.log(comment.parentNode)
+            const newComment = document.createComment('新添加的注释') // 元素的子元素最后添加一条注释
+            ul.appendChild(newComment)
+            /*
+                注释节点很少通过 JavaScrpit 创建和访问，因为注释几乎不涉及算法逻辑。此外，浏览器不
+承认结束的</html>标签之后的注释。如果要访问注释节点，则必须确定它们是<html>元素的后代
+            */
+        </script>
+    </body>
+</html>

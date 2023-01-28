@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>文档写入</title>
+    </head>
+    <body>
+        <ul id="myList">
+            <li>item 1</li>
+            <li>item 2</li>
+            <li>item 3</li>
+        </ul>
+        <script src="../query.js"></script>
+        <!-- <script src="../jquery-1.8.3.js"></script> -->
+        <script type="text/javascript">
+            // const ul = document.getElementById('myList')
+            const ul = $('#myList')[0];
+            const childNodes = ul.childNodes;
+            console.log(childNodes); // 返回所有子节点
+            const textNode = childNodes[0]; //
+            console.log(textNode.nodeName); // #text
+            console.log(textNode.nodeValue); // 空
+            console.log(textNode.nodeType); // 3
+            console.log(textNode.parentNode) // element对象   父元素
+            // 文本节点操作
+            textNode.appendData('list') // 向文本节点后面添加文本text
+            console.log(textNode.nodeValue.length) // 没有设置文本text时 空格长度为13
+            textNode.deleteData(0, textNode.nodeValue.length) // 删除文本节点的文本
+            textNode.insertData(0, '你好') // 在文本节点 index 位置插入文本text
+            textNode.replaceData(0, 0, '佩奇') // 替换文本节点
+            console.log(textNode.splitText(1), 'textNode.splitText(2)') // 在位置 offset 将当前文本节点拆分为两个文本节点；返回index后面的文本
+            console.log(textNode.substringData(0, 4))
+            console.log(textNode.nodeValue.length)
+            
+        </script>
+    </body>
+</html>

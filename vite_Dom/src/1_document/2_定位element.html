@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="myDiv">我是div元素</div>
+    <div id="myDiv">我是div元素1</div>
+    <img src="../assets/img/logo.jpeg" name="logo1" width="50" height="50" alt="logo">
+    <img src="../assets/img/logo.jpeg" name="logo2" width="50" height="50" alt="logo">
+    <fieldset> 
+        <legend >which color do you prefer?</legend> 
+        <ul> 
+            <li> 
+                <input type="radio" value="red" name="color" id="colorRed"> 
+                <label for="colorRed">Red</label> 
+            </li> 
+            <li>
+                <input type="radio" value="green" name="color" id="colorGreen"> 
+                <label for="colorGreen">Green</label>
+            </li>
+            <li>
+                <input type="radio" value="blue" name="color" id="colorBlue">
+                <label for="colorBlue">Blue</label>
+            </li>
+            <li>
+                <input autocapitalize="words" type="input"  value="" name="color" id="colorBlue">
+                <label for="colorBlue">Blue</label>
+            </li>
+        </ul> 
+   </fieldset>
+    <script>
+        /*   -----------  根据id获取元素  ------------ */
+        const div = document.getElementById('myDiv');
+        console.log(div) // 返回div元素  多个相同的id 只会返回第一个出现的元素
+        const shamDiv = document.getElementById('mydiv')
+        console.log(shamDiv) // 返回null
+        
+        /*   -----------  根据元素名获取元素对象 及 取出元素的方法 ------------ */
+        const allElement = document.getElementsByTagName('*')
+        console.log(allElement, 'allElement') // 获取所有的元素
+
+        const img = document.getElementsByTagName('img')
+        console.log(img) // 返回的是HTMLCollection对象数组 而不是一个元素
+        console.log(img.length) // 获取元素数量
+        console.log(img[0]) // 获取元素  获取元素第一种方法
+        console.log(img.item(0)) // 获取元素 获取元素第二种方法
+        console.log(img.namedItem('logo1')) // 获取元素 获取元素第三种方法  要根据name来获取
+        console.log(img["logo2"])  // 获取元素 获取元素第四种方法  要根据name来获取
+
+        /*     --------------------  根据元素的name属性获取元素对象   -----------------------------    */
+        const nameElement = document.getElementsByName('color')
+        console.log(nameElement, 'nameElement') // 根据元素的name获取元素 返回的是HTMLCollection对象数组 而不是一个元素
+    </script>
+</body>
+</html>
