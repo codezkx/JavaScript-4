@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MutationObserver基本用法</title>
+    </head>
+    <body>
+        <div>复用MutationObserver</div>
+        <script src="../query.js"></script>
+        <script type="text/javascript">
+            const observer = new MutationObserver(
+                (mutationRecord) => console.log(mutationRecord.map(item => item.target))
+            );
+            let childDiv = document.createElement('div');
+            let chidlSpan = document.createElement('span');
+            document.body.appendChild(childDiv);
+            document.body.appendChild(chidlSpan);
+            observer.observe(childDiv, { attributes: true });
+            observer.observe(chidlSpan, { attributes: true });
+            childDiv.setAttribute('foo', 'bar');
+            chidlSpan.setAttribute('foo', 'bar');
+            observer.disconnect() // 中断MutationObserver接口回调 并清除队列中的异步执行的回调
+            
+            // 重用MutationObserver
+            const observer1 = new MutationObserver(
+                (mutationRecord) => console.log(mutationRecord.map(item => item.attributeName))
+            )
+            observer1.observe(document.body, { attributes: true })
+            document.body.setAttribute('foo1', 'bar1')
+            observer1.disconnect() // 中断
+            observer1.observe(document.body, { attributes: true }) // 重用
+            document.body.setAttribute('foo2', 'bar2')
+
+        </script>
+    </body>
+</html>

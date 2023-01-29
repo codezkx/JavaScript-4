@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MutationObserverInit与观察范围</title>
+    </head>
+    <body>
+        <div>MutationObserverInit</div>
+        <div id="attributeFilter"></div>
+        <script src="../query.js"></script>
+        <script type="text/javascript">
+            const observer = new MutationObserver(
+                (mutationRecord) => console.log(mutationRecord)
+            );
+            /* attributes设置为true时 观察所有的属性 */
+            // 观察属性
+            observer.observe(document.body, { attributes: true }); // 观察对应元素的所有的属性变化
+            // 添加属性
+            document.body.setAttribute('foo', 'bar');
+            // 修改属性
+            document.body.setAttribute('foo', 'baz');
+            // 移除属性
+            document.body.removeAttribute('foo');
+
+            /* attributeFilter 将某个属性设置为白名单只观察白名单中的属性 */
+            const attributeFilter = document.getElementById('attributeFilter');
+        </script>
+    </body>
+</html>

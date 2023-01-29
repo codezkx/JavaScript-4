@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MutationObserver基本用法</title>
+    </head>
+    <body>
+        <div>disconnect方法</div>
+        <script src="../query.js"></script>
+        <script type="text/javascript">
+            const observer = new MutationObserver(
+                (mutationRecord) => console.log(mutationRecord)
+            );
+            observer.observe(document.body, { attributes: true });
+            document.body.className = 'foo';
+            // 提前终止执行回调，不仅会停止此后变化事件的回调，也会抛弃已经加入任务队列要异步执行的回调。 如果要第一次不中断需要添加异步
+            observer.disconnect();
+            document.body.className = 'bar';
+        </script>
+    </body>
+</html>

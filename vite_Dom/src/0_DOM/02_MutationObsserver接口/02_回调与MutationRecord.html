@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MutationObserver基本用法</title>
+    </head>
+    <body>
+        <div>MutationObserver基本用法</div>
+        <div class="myDiv"></div>
+        <div class="Foo"></div>
+        <script src="../query.js"></script>
+        <script type="text/javascript">
+            const observer = new MutationObserver(
+                // 反映一个属性变化的 MutationRecord 实例的数组
+                (mutationRecords) => console.log('observer:',mutationRecords)
+            );
+            observer.observe(document.body, { attributes: true });
+            document.body.setAttribute('foo', 'bar');
+
+            // 设置命名空间
+            let observer1 = new MutationObserver(
+                (mutationRecords) => console.log('observer1:', mutationRecords)
+            );
+            observer1.observe(document.body, { attributes: true });
+            document.body.setAttributeNS('baz', 'foo', 'bar');
+
+            // 连续修改生成MutationRecord实例   下次回调执行时就会收到包含所有这些实例的数组，顺序为变化事件发生的顺序：
+            const observer2 = new MutationObserver(
+                (mutationRecords) => console.log('observer2:', mutationRecords) 
+            );
+            const div = document.getElementsByClassName('myDiv')[0];
+            observer2.observe(div, {attributes: true});
+            div.className = 'foo';
+            div.id = 'bar';
+            div.align = 'left';
+            div.id = 'myId'
+
+            // MutationOberver 接口 回调的第二个参数
+            const observer3 = new MutationObserver(
+                (mutationRecords, mutationObserver) => console.log(mutationRecords, mutationObserver) 
+            )
+            const divEl = document.getElementsByClassName('Foo')[0];
+            observer3.observe(divEl, {attributes: true});
+            divEl.className = 'foo'
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>使用NodeList</title>
+    </head>
+    <body>
+        <div></div>
+        <script src="../query.js"></script>
+        <script type="text/javascript">
+            /*
+                理解 NodeList 对象和相关的 NamedNodeMap、HTMLCollection，是理解 DOM 编程的关键。这
+            3 个集合类型都是“实时的”，意味着文档结构的变化会实时地在它们身上反映出来，因此它们的值始终代表最新的状态。
+            */
+            const divs = document.getElementsByTagName('div'); // 返回一个实时的集合 则divs的length是实时变动的 如果不需要这样做则需要缓存
+            const vloTime = Date.now();
+            for (let i = 0; i < divs.length; ++i) {
+                const div = document.createElement('div');
+                div.style.fontSize = '20px';
+                div.style.color = 'blue';
+                div.appendChild(document.createTextNode(`我是第${i}元素`));
+                document.body.appendChild(div);
+                if (i > 10) {
+                    break;
+                }
+            }
+            console.log('创建1000个div和文本节点的消耗时间:', (Date.now() - vloTime))
+        </script>
+    </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>操作表格</title>
+    </head>
+    <body>
+        <script src="../query.js"></script>
+        <script type="text/javascript">
+            // 使用document创建表格
+            const table0 = document.createElement('table');
+            table0.border = '1';
+            table0.width = '100%';
+            const documentFragment = document.createDocumentFragment();
+            for (let i = 1; i < 3; i++) {
+                const tr = document.createElement('tr');
+                for (let j = 1; j < 3; j ++) {
+                    const td = document.createElement('td');
+                    td.style.fontSize = '20px'
+                    td.style.color = 'red'
+                    td.appendChild(document.createTextNode(`Cell ${j}, ${i}`));
+                    tr.appendChild(td)
+                }
+                documentFragment.appendChild(tr);
+            }
+            const tbody0 = document.createElement('tbody');
+            tbody0.appendChild(documentFragment);
+            table0.appendChild(tbody0);
+            document.body.appendChild(table0);
+
+            // 使用table元素的属性和方法创建表格
+            const table1 = document.createElement('table');
+            table1.style.borderWidth = '1px';
+            table1.style.borderStyle = 'solid';
+            table1.style.borderColor = '#ccc';
+            table1.style.width = '100%'
+            const tbody1 = document.createElement('tbody')
+            table1.appendChild(tbody1)
+            console.log('table属性caption:' ,table1.caption)
+            console.log('table属性tBodies:' ,table1.tBodies)
+            console.log('table属性tFoot:' ,table1.tFoot)
+            console.log('table属性tHead:' ,table1.tHead)
+            console.log('table属性rows:' ,table1.rows)
+            // 创建第一行
+            tbody1.insertRow(0); 
+            tbody1.rows[0].insertCell(0); 
+            tbody1.rows[0].cells[0].appendChild(document.createTextNode("Cell 1,1")); 
+            tbody1.rows[0].insertCell(1); 
+            tbody1.rows[0].cells[1].appendChild(document.createTextNode("Cell 2,1")); 
+            // 创建第二行
+            tbody1.insertRow(1); 
+            tbody1.rows[1].insertCell(0); 
+            tbody1.rows[1].cells[0].appendChild(document.createTextNode("Cell 1,2")); 
+            tbody1.rows[1].insertCell(1); 
+            tbody1.rows[1].cells[1].appendChild(document.createTextNode("Cell 2,2"));
+            document.body.appendChild(table1);
+
+
+        </script>
+    </body>
+</html>
