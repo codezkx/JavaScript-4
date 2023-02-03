@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" title="我是link" href="./styleSheets.css">
+        <title>简单选择</title>
+        <style title="我是myDiv">
+
+        </style>
+    </head>
+    <body>
+        <div id="div1"> 
+            <p>
+                <b>Hello</b> world!</p> 
+            <ul> 
+            <li>List item 1</li> 
+            <li>List item 2</li> 
+            <li>List item 3</li> 
+            </ul> 
+        </div>
+        <script type="text/javascript">
+            const createRange1 = document.createRange()
+            const createRange2 = document.createRange()
+            const p = document.querySelector('p')
+            const selectNode = createRange1.selectNode(p)
+            const selectNodeContents = createRange2.selectNodeContents(p)            
+            console.log(selectNodeContents, 'selectNodeContents')
+        </script>
+    </body>
+</html>

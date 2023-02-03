@@ -9,8 +9,21 @@
     <body>
         <div>MutationObserverInit</div>
         <div id="attributeFilter"></div>
+        <div id="attributeOldValue"></div>
+        <div id="characterData"><div></div></div>
+        <div id="childList"></div>
         <script src="../query.js"></script>
         <script type="text/javascript">
+            /* 
+                subtree: 表示除了目标节点，是否观察目标节点的子树（后代）默认为 false
+                attributes: 表示是否观察目标节点的属性变化 默认为 false
+                attributeFilter: 字符串数组，表示要观察哪些属性的变化  默认为观察所有属性
+                attributeOldValue: 布尔值，表示 MutationRecord 是否记录变化之前的属性值 把这个值设置为 true 也会将 attributes 的值转换为 true.默认为 false
+                characterData: 表示修改字符数据是否触发变化事件  默认为 false
+                characterDataOldValue: 表示 MutationRecord 是否记录变化之前的字符数据把这个值设置为 true 也会将 characterData 的值转换为 true.默认为 false 
+                childList: 表示修改目标节点的子节点是否触发变化事件 默认为 false
+            */
+
             const observer = new MutationObserver(
                 (mutationRecord) => console.log(mutationRecord)
             );
@@ -26,6 +39,43 @@
 
             /* attributeFilter 将某个属性设置为白名单只观察白名单中的属性 */
             const attributeFilter = document.getElementById('attributeFilter');
+            const observer1 = new MutationObserver(
+                (mutationRecord) => console.log('观察白名单的属性:' ,mutationRecord)
+            )
+            observer1.observe(attributeFilter, { attributeFilter: ['foo'], attributeOldValue: true })
+            // 添加白名单属性
+            attributeFilter.setAttribute('foo', 'bar');
+            // 添加被排除的属性
+            attributeFilter.setAttribute('baz', 'qux');
+
+            /*    观察属性值的变化 attributeOldValue         */
+            const attributeOldValue = document.getElementById('attributeOldValue');
+            const observer2 = new MutationObserver(
+                (mutationRecord) => console.log('attributeOldValue: ', mutationRecord.map(item => item.oldValue))
+            );
+            observer2.observe(attributeOldValue, { attributeOldValue: true });
+            attributeOldValue.setAttribute('foo', 'bar');
+            attributeOldValue.setAttribute('foo', 'foo1');
+            /* 观察字符数据 characterData */
+            const characterDataEle = document.getElementById('characterData');
+            const observer3 = new MutationObserver(
+                (mutationRecord) => console.log('characterData:', mutationRecord.map(item => item))
+            );
+            characterDataEle.textContent = 'characterData';
+            observer3.observe(characterDataEle, { childList:true ,characterData: true, characterDataOldValue: true });
+            characterDataEle.textContent = 'characterData';
+            characterDataEle.textContent = 'characterData12';
+
+            /* 观察子节点 子节点的 删除、添加、顺序改变则都会触发回调*/
+            const childListEl = document.getElementById('childList');
+            const observer4 = new MutationObserver(
+                (mutationRecord) => console.log(mutationRecord.map(item => item))
+            );
+            observer4.observe(childListEl, { childList: true });
+            childListEl.appendChild(document.createElement('div'))
+            childListEl.appendChild(document.createElement('span'))
+            childListEl.insertBefore(childListEl.lastChild, childListEl.firstChild)
+
         </script>
     </body>
 </html>

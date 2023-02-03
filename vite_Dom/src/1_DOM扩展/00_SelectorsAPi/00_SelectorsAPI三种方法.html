@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Selectors Api 三种方法</title>
+    </head>
+    <body>
+        <div></div>
+        <div id="foo"></div>
+        <div class="foo"></div>
+        <div class="bar">
+            <div class="id"></div>
+            <div id="foo"></div>
+
+        </div>
+        <script type="text/javascript">
+            /* querySelector方法 根据选择器获取一个对应的DOM */
+            const divEl = document.querySelector('div');
+            const fooEl = document.querySelector('#foo');
+            const barEL = document.querySelector('.bar>.id')
+            const barEL1 = document.querySelector('.bar>#foo')
+            console.log(divEl, fooEl, barEL, barEL1)
+            /* querySelectorAll方法 根据选择器获取一组对应的DOM*/
+            const fooElAll = document.querySelectorAll('#foo')
+            console.log(fooElAll) // 这是一个静态的NodeList实例， 不是getElementsBuName等时动态实时更新
+            /* matches()方法  判断一个提供的选择器是否存在 */
+            const matches = document.body.matches('body.bar')
+            console.log(matches ? '存在选择器：#f00' : '所提供的选择器不存在', matches )
+        </script>
+    </body>
+</html>

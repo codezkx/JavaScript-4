@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>焦点管理</title>
+    </head>
+    <body>
+        <button class="myButton">按钮</button>
+        <script type="text/javascript">
+           const butEl = document.getElementsByClassName('myButton');
+           butEl[0].focus() // 获取But焦点
+           const activeElement = document.activeElement // 注意的是 在DOM加载前为null
+           console.log('获取焦点元素：', activeElement)
+
+           console.log('判断文档是否获取焦点', document.hasFocus())
+           /* 
+            第一个方法可以用来查询文档，确定哪个元素拥有焦点，第二个方法可以查询文档是否获得了焦点，
+而这对于保证 Web 应用程序的无障碍使用是非常重要的。无障碍 Web 应用程序的一个重要方面就是焦
+点管理，而能够确定哪个元素当前拥有焦点（相比于之前的猜测）是一个很大的进步。
+           */
+        </script>
+    </body>
+</html>

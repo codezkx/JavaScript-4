@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>innerHTMl</title>
+    </head>
+    <body>
+        <div class="myDiv" id="myDiv" data-appId="12345" ></div>
+        <script type="text/javascript">
+            // 注意内存与性能问题
+            const divEl = document.getElementsByClassName('myDiv')[0];
+            console.log(divEl);
+            /* 
+                IE8 及之前的版
+                本中，只要这样插入的<script>元素指定了 defer 属性，且<script>之前是“受控元素”（scoped 
+                element），那就是可以执行的。
+            */
+            // innerHTMl  创建script元素不会执行 
+            divEl.innerHTML = `
+                <div id="content"> 
+                    <p>This is a <strong>paragraph</strong> with a list following it.</p> 
+                    <ul> 
+                        <li>Item 1</li> 
+                        <li>Item 2</li> 
+                        <li>Item 3</li> 
+                    </ul> 
+                </div>
+            `;
+            /* 
+                注意 设置 innerHTML 会导致浏览器将 HTML 字符串解析为相应的 DOM 树。这意味着
+                设置 innerHTML 属性后马上再读出来会得到不同的字符串。这是因为返回的字符串是将
+                原始字符串对应的 DOM 子树序列化之后的结果。
+            */
+
+        /*  outerHTML 获取元素及子元素的字符串形式 */
+        const outerHTML = divEl.outerHTML;
+        console.log(outerHTML);
+        // divEl.outerHTML =  "<p>This is a paragraph.</p>";
+
+        /* 
+            insertAdjacentHTML 插入元素节点
+            insertAdjacentText 插入文本节点
+            上面两个方法第一个参数相同 则插入的顺序按代码先后插入
+
+            beforebegin: 插入当前元素前面，作为前一个同胞节点
+            afterend: 插入当前元素后面，作为后一个同步节点
+
+            afterbegin: 插入当前元素内部，作为新的子节点放在第一个子节点前面
+            beforend: 插入当前元素内部，作为新的子节点或放在最后一个子节点后面
+        */
+        divEl.insertAdjacentHTML('beforebegin', '<p>我是beforebegin</p>')
+        divEl.insertAdjacentText('beforebegin', '我是insertAdjacentText') // 插入一个文本节点
+        
+        </script>
+    </body>
+</html>

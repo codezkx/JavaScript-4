@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CSS类扩展</title>
+    </head>
+    <body>
+        <div class="foo foo1">
+            <div></div>
+        </div>
+        <script type="text/javascript">
+            // getElementsByClassName 是html5新增的方法  返回对应元素及子元素有指定类名元素集合
+            const foo = document.getElementsByClassName('foo')
+            console.log(foo)
+            /* classList属性 以字符串形式添加类名   一下属性都属于DOMTokenList*/
+            foo[0].classList.add('bar') // add 方法添加一个类名
+            const contains = foo[0].classList.contains('bar') // 查看当前类名是否存在
+            console.log(contains, 'contains')
+            foo[0].classList.remove('bar') // 删除指定的类名
+            const toggle = foo[0].classList.toggle('foo12') // 指定一个类名 元素没有此类名则添加，有则删除。
+            console.log(toggle)
+            console.log(foo[0].classList)
+        </script>
+    </body>
+</html>

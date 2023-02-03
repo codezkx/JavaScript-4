@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>自定义数据属性</title>
+    </head>
+    <body>
+        <div class="myDiv" id="myDiv" data-appId="12345" ></div>
+        <script type="text/javascript">
+            const divEl = document.getElementsByClassName('myDiv')[0]
+            const dataAppID = divEl.dataset.appid
+            divEl.dataset.appid = '我是appid' // 更改自定义属性
+            divEl.dataset.myname = '我是div' // 设置自定义属性  
+            console.log(dataAppID)
+            /* 自定义数据属性非常适合需要给元素附加某些数据的场景，比如链接追踪和在聚合应用程序中标识
+页面的不同部分。另外，单页应用程序框架也非常多地使用了自定义数据属性。 */
+        </script>
+    </body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" title="我是link" href="./styleSheets.css">
+        <title>元素尺寸</title>
+        <style>
+            html, body {
+                margin: 0;
+                height: 2000px;
+            }
+            .myDiv {
+                width: 400px;
+                height: 400px;
+                padding: 20px;
+                border: 10px solid #999;
+                margin: 40px;
+                background-color: #ccc;
+                overflow: auto;
+            }
+
+            .myDiv>div {
+                width: 4000px;
+                height: 4000px;
+                margin: auto;
+                background-color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="myDiv" disabled="true" >
+           
+            <div>
+                我是一个div
+            </div>
+        </div>
+        <script type="text/javascript">
+            /* 
+                元素偏移尺寸
+                     offsetHeight，元素在垂直方向上占用的像素尺寸，包括它的高度、水平滚动条高度（如果可见）和上、下边框的高度。
+                     offsetLeft，元素左边框外侧距离包含元素左边框内侧的像素数。
+                     offsetTop，元素上边框外侧距离包含元素上边框内侧的像素数。
+                     offsetWidth，元素在水平方向上占用的像素尺寸，包括它的宽度、垂直滚动条宽度（如果可见）和左、右边框的宽度。
+
+                    offsetParent： 获取父元素
+                        注意： offsetParent 不一定是 parentNode。比如，<td>元素的 offsetParent 是作为其祖先的<table>
+                            元素，因为<table>是节点层级中第一个提供尺寸的元素。
+            */
+
+            const divEl = document.querySelector('.myDiv')
+            console.log('offsetHeight(height + padding + border)的值:' ,divEl.offsetHeight) // 元素的自身 height + padding 440
+            console.log('offsetWidth(width + padding) + border)的值:', divEl.offsetWidth) // 440
+            console.log('oofsetLeft距离父元素左边框的距离', divEl.offsetLeft)
+            console.log('oofsetLeft距离父元素上边框的距离', divEl.offsetTop)
+
+            const divChild = divEl.querySelector('.myDiv > div')
+            console.log('offsetHeight(height + padding + border)的值:' ,divChild.offsetHeight)
+            console.log('offsetWidth(width + padding + border)的值:', divChild.offsetWidth)
+            console.log(divChild.offsetParent) // 获取父元素
+
+            /* 
+                客户端尺寸（视口尺寸  注意 只会获取视口中的宽度和高度超出部分会被剪拆掉  如果需要获取则使用scrollHeight和scrollWidth获取）
+                   clientWidth： 元素的内容宽度加上内边距(width + padding)
+                   clientHeight: 元素的内容高度加上内边距(height + padding  ) 
+                   
+                   document.documentElement: 
+
+                   客户端尺寸实际上就是元素内部的空间，因此不包含滚动条占用的空间。这两个属性最常用于确定
+                    浏览器视口尺寸，即检测 document.documentElement 的 clientWidth 和 clientHeight。这两个
+                    属性表示视口（<html>或<body>元素）的尺寸。
+            */
+           	const clientWidth = divEl.clientWidth
+            const childElement = divEl.firstElementChild
+            console.log('clientWidth距离是width + padding:', clientWidth)
+            console.log('滚动元素的宽度', childElement.clientWidth)
+            console.log('Body元素的宽度', document.documentElement.clientHeight)
+
+
+			const clientHeight = divEl.clientHeight
+			console.log('clientHeight距离Height,', clientHeight)
+            console.log('滚动元素的高度', childElement.clientHeight)
+
+
+			const docuemntElementClientWidth = document.documentElement.clientWidth
+			console.log('浏览器视口的宽度:', docuemntElementClientWidth)
+			const documentElementClientHeight = document.documentElement.clientHeight
+			console.log('浏览器视口的高度:' , documentElementClientHeight)
+            
+            /* 
+                滚动尺寸
+                    scrollHeight: 没有滚动条出现时，元素内容的总高度。
+                    scrollWidth: 没有滚动条出现时，元素内容的总宽度。
+                    scrollLeft: 内容区左侧隐藏的像树素，设置这个属性可以改变元素的滚动条位置。 // 设置了滚动的元素
+                    scrollTop: 内容区顶部隐藏的像素数，设置这个属性可以改变元素的滚动位置。 // 设置了滚动的元素
+            */
+            console.log('scollTopHeight滚动元素的高度', childElement.scrollHeight)
+            console.log('scrollWidth滚动元素的宽度', childElement.scrollWidth)
+            console.log('scrollTop', childElement.scrollTop)
+            console.log('scrollLeft', childElement.scrollLeft)
+
+            function scrollToTop() {
+                setTimeout(function() {
+                    if (divEl.scrollTop !== 0) {
+                        divEl.scrollTop = 0
+                        console.log('乖乖回到顶部')
+                    }
+                }, 3000)
+            }
+            scrollToTop()
+
+            /* 
+                确定元素尺寸
+                    getBoundingClientRect() 方法获取元素尺寸  注意这个方法返回的属性时针对视口而言的
+                    返回的一个DOMRect,其属性有
+                        left：元素距离视口左侧的距离。
+                        top: 元素距离视口顶部的距离。
+                        right: 元素右侧距离视口左侧的距离。
+                        width: 元素自身的宽度。
+                        height: 元素自身的高度。
+            */
+
+            const boundingClientRect = divEl.getBoundingClientRect()
+            console.log(boundingClientRect, 'boundingClientRect')
+        </script>
+    </body>
+</html>

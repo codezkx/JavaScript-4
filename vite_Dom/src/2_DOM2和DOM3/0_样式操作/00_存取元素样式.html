@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>样式操作</title>
+        <style>
+            .myDiv {
+                background-color: #ccc;
+                width: 200px;
+                height: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="myDiv">
+            我是一个div
+        </div>
+        <script type="text/javascript">
+            const divEl = document.querySelector('.myDiv');
+            
+            console.log(divEl);
+            console.log(divEl.style) // 获取一个CSSstyleDeclaration对象 返回所有的css样式命
+            divEl.style.width = '200px';
+            divEl.style.height = '200px';
+            divEl.style.backgroundColor = '#999';
+            divEl.style.fontSize = '20px';
+            divEl.style.fontWeight = '900';
+
+            /* 
+                DOM样式属性方法：
+                    cssText，包含 style 属性中的 CSS 代码。
+                    length，应用给元素的 CSS 属性数量。
+                    parentRule，表示 CSS 信息的 CSSRule 对象（下一节会讨论 CSSRule 类型）。
+                    getPropertyCSSValue(propertyName)，返回包含 CSS 属性 propertyName 值的 CSSValue
+                        对象（已废弃）。
+                    getPropertyPriority(propertyName)，如果 CSS 属性 propertyName 使用了!important
+                        则返回"important"，否则返回空字符串。
+                    getPropertyValue(propertyName)，返回属性 propertyName 的字符串值。
+                    item(index)，返回索引为 index 的 CSS 属性名。
+                    removeProperty(propertyName)，从样式中删除 CSS 属性 propertyName。  setProperty(propertyName, value, priority)，设置 CSS 属性 propertyName 的值为
+                        value，priority 是"important"或空字符串。
+            */
+            const cssTextStr = divEl.style.cssText;
+            console.log('获取元素style属性的值:' ,cssTextStr); // 获取指定元素的style值
+            divEl.style.cssText = cssTextStr + 'font-size: 30px !important;' + 'border: 1px solid red;'; // 设置style样式  注意： 这里会覆盖以前的style
+
+            const styleLen = divEl.style.length;
+            console.log('style属性的个数:', styleLen);  // 获取style属性的数量
+
+            /* getPropertyPriority  返回style属性定义了important的属性 */
+            let prop, value, i, len;
+            for (i = 0, len = divEl.style.length; i < len; i++) {
+                prop = divEl.style[i]; // or divEl.style.item(i)
+                value = divEl.style.getPropertyPriority(prop); // 返回style属性定义了important的属性
+                if (value) {
+                    console.log(`style属性：${prop}, ${value}, 索引值${i}`);
+                };
+            };
+
+            /*  getPropertyValue 返回CSS样式的值  */
+            let prop1, value1, j, len1;
+            for (j = 0, len1 = divEl.style.length; j < len1; j++) {
+                prop1 = divEl.style.item(j)
+                value1 = divEl.style.getPropertyValue(prop1)
+                console.log(`style的CSS样式的值: ${value1}`)
+            }
+
+            /* removeProperty删除指定的css样式 */
+            divEl.style.removeProperty(divEl.style.item(0)) // 删除指定的cs样式
+
+            /* 
+                样式计算（编译后的css样式）
+                    defaultView属性的方法getComputedStyle()  参数： 1、要取得计算样式的元素。 2、伪元素字符串
+            */
+            const defaultView = document.defaultView.getComputedStyle(divEl, null)
+
+            console.log(defaultView, 'defaultView')
+        </script>
+    </body>
+</html>

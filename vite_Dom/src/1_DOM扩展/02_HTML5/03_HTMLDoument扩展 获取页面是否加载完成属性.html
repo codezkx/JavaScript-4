@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HTMLDocument扩展</title>
+    </head>
+    <body>
+        <button class="myButton">按钮</button>
+        <script type="text/javascript">
+            /* document.readyState 返回值有 loading： 表示文档正在加载， complete: 表示文档加载完成 */
+            const readyState = document.readyState  // 该属性是一个异步操作
+            window.onload = function () { // 文档加载完成执行回调
+                console.log(readyState)
+                const readyState1 = document.readyState
+                console.log(readyState1)
+            }
+
+            /* document.compatMode属性返回值有 CSS1Compat: 表示标准模式  BackCompat: 表示混杂模式 */
+            console.log('浏览器处于什么模式', document.compatMode, ':', document.compatMode === 'CSS1Compat' ? '标准模式' : '混杂模式')
+
+            /*  document.head 获取head元素  */
+            const head = document.head
+            console.log(head)
+        </script>
+    </body>
+</html>

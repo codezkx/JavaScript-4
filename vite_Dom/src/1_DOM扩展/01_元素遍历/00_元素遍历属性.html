@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>元素遍历</title>
+    </head>
+    <body>
+        <div>我是第一个</div>
+        <div class="bar">
+            <div class="id"></div>
+            <div id="foo"></div>
+        </div>
+        <div>我是最后一个</div>
+        <script type="text/javascript">
+            const barEl = document.querySelector('.bar')
+            /*  以下属性返回的节点没有包含空白节点 */
+            // childElementCount 获取子元素数量 
+            const childElementCount = barEl.childElementCount
+            console.log(childElementCount, 'childElementCount')
+            // firstElementChild  获取第一个子元素
+            const firstElementChild = barEl.firstElementChild
+            console.log(firstElementChild)
+            // lastElementChild 获取最后一个子元素
+            const lastElementChild = barEl.lastElementChild
+            console.log(lastElementChild)
+            // previousElementSibling 获取前一个元素
+            const previousElementSibling = barEl.previousElementSibling
+            console.log(previousElementSibling)
+            // nextElementSibling 指向后一个元素
+            const nextElementSibling = barEl.nextElementSibling
+            console.log(nextElementSibling)
+        </script>
+    </body>
+</html>

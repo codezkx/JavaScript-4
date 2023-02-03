@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>专有扩展</title>
+    </head>
+    <body>
+        <div></div>
+        <div class="myDiv">
+            <div class="myDiv1">
+                我是div标签
+            </div>
+            <span>
+                我是span标签
+            </span>
+        </div>
+        <div></div>
+        <script type="text/javascript">
+            const divEl = document.getElementsByClassName('myDiv')[0];
+            /* children和childNodes区别在于，前者不包含空白节点，后者包含空白节点 */
+            console.log(divEl.children); // 返回HTMLCollection集合 节点中不包括空白节点(nodeType为3)
+            console.log(divEl.childNodes, divEl.childNodes[0].nodeType); // childNodes 返回HTMLCollection集合  包含空白节点(及nodeType为3)
+
+            /* 
+                contains: 方法
+                    判断指定元素是否存在于调用元素上  返回boolean  参数  子元素
+                compereDocumentPosition： 方法会返回表示两个节点关系的位掩码
+                    0x1 断开（传入的节点不在文档中）
+                    0x2 领先（传入的节点在 DOM 树中位于参考节点之前）
+                    0x4 随后（传入的节点在 DOM 树中位于参考节点之后）
+                    0x8 包含（传入的节点是参考节点的祖先）
+                    0x10 被包含（传入的节点是参考节点的后代）
+            */
+            const childrenEl = divEl.children
+            const contains = divEl.contains(childrenEl[0])
+            console.log(contains)
+            const contains1 = divEl.contains(document.body)
+            console.log(contains1)
+            const compereDocumentPosition = divEl.compareDocumentPosition(childrenEl[0])
+            console.log(compereDocumentPosition)
+
+            /*  
+                HTML5 将 IE 发明的 innerHTML 和 outerHTML 纳入了标准
+
+                innerText 和outerText  设置和获取文本节点  未标准化
+
+                innerText： 设置文本节点会把子元素全部设置成对应的文本， 改变DOM树结构.  但调用节点不会被替换
+
+                outertext: 设置文本节点会把子元素及本身元素全部设置成对应的文本， 改变DOM树结构。
+            */
+
+            /* 
+                outerText 是一个非标准的属性，而且也没有被标准化的前景。因此，不推荐依赖这个属性实现
+                重要的操作。除 Firefox 之外所有主流浏览器都支持 outerText。
+            */
+        </script>
+    </body>
+</html>

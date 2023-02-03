@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" title="我是link" href="./styleSheets.css">
+        <title>NodeIterator</title>
+        <style title="我是myDiv">
+
+        </style>
+    </head>
+    <body>
+        <div id="div1"> 
+            <p><b>Hello</b> world!</p> 
+            <ul> 
+            <li>List item 1</li> 
+            <li>List item 2</li> 
+            <li>List item 3</li> 
+            </ul> 
+        </div>
+        <script type="text/javascript">
+            const divEl = document.querySelector('#div1');
+            /* 
+                createNodeIterator
+                    参数
+                         root，作为遍历根节点的节点。
+                         whatToShow，数值代码，表示应该访问哪些节点。
+                         filter，NodeFilter 对象或函数，表示是否接收或跳过特定节点。
+                         entityReferenceExpansion，布尔值，表示是否扩展实体引用。这个参数在 HTML 文档中没
+                            有效果，因为实体引用永远不扩展。
+                whatToShow 参数是一个位掩码，通过应用一个或多个过滤器来指定访问哪些节点。这个参数对应
+                    的常量是在 NodeFilter 类型中定义的。
+                     NodeFilter.SHOW_ALL，所有节点。
+                     NodeFilter.SHOW_ELEMENT，元素节点。
+                     NodeFilter.SHOW_TEXT，文本节点。
+                     NodeFilter.SHOW_COMMENT，注释节点。
+                     NodeFilter.SHOW_DOCUMENT，文档节点。
+                     NodeFilter.SHOW_DOCUMENT_TYPE，文档类型节点。
+            
+            */
+            const nodeIterator = document.createNodeIterator(divEl, NodeFilter.SHOW_ELEMENT, null, false);
+            console.log(nodeIterator)
+            let node = nodeIterator.nextNode();
+            while (node !== null) {
+                console.log(node.nodeName);
+                node = nodeIterator.nextNode();
+            }
+
+            /* 
+                TreeWalker
+            
+            */
+        </script>
+    </body>
+</html>

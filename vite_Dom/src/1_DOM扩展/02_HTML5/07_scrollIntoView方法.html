@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>scrollIntoView</title>
+    </head>
+    <body>
+        <div style="margin-top: 10000px;"></div>
+        <div class="myDiv"></div>
+        <script type="text/javascript">
+            const divEl = document.getElementsByClassName('myDiv')[0];
+            // divEl.scrollInttoView()
+            divEl.style.width = '100px'
+            divEl.style.height = '200px'
+            divEl.style.backgroundColor = 'red'
+            divEl.style.overflow = 'hidden'
+            let innerHtml = ''
+            for (let i = 0; i < 1000; i++) {
+                innerHtml += `<div>${i}</div>`
+            }
+            divEl.innerHTML = innerHtml
+            console.log(divEl.children)
+            /* 
+                scrollIntoView 方法自定滚动到指定元素
+                
+                alignToTop 是一个布尔值。
+                     true：窗口滚动后元素的顶部与视口顶部对齐。
+                     false：窗口滚动后元素的底部与视口底部对齐。
+                scrollIntoViewOptions 是一个选项对象。
+                     behavior：定义过渡动画，可取的值为"smooth"和"auto"，默认为"auto"。 
+                     block：定义垂直方向的对齐，可取的值为"start"、"center"、"end"和"nearest"，默认为 "start"。 
+                     inline：定义水平方向的对齐，可取的值为"start"、"center"、"end"和"nearest"，默认为 "nearest"。
+            
+            */
+            divEl.scrollIntoView({behavior: 'smooth', block: 'start'}) // 
+        </script>
+    </body>
+</html>
