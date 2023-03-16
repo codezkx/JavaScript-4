@@ -1,0 +1,27 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>提交表单</title> 
+    </head> 
+    <body>
+        <form
+            id="myForm"
+            name="from1"
+            action="">
+            <input type="submit" value="Submit Form">
+            <button type="subnit">Submit Form</button>
+        </form>
+        <script>
+            console.log(document.forms)
+            const form = document.getElementById('myForm');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault(); // 阻止浏览器默认行为
+                console.log(e);
+            })
+            
+        </script>
+    </body>
+</html>

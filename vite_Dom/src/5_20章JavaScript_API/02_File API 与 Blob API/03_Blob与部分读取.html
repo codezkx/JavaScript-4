@@ -1,0 +1,51 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <title>Blob与部分读取</title> 
+        <style>
+            div {
+                box-sizing: border-box;
+                width: 100px;
+                height: 20px;
+                padding: 0 10px;
+                margin: 10px 0;
+                color: #FFF;
+                background-color: #000;
+            }
+        </style>
+    </head> 
+    <body>
+        <input id="int-file" type="file" name="file">
+        <div class="output">1</div>
+        <div class="progress">1</div>
+        <script>
+            const file = document.querySelector('#int-file');
+            const output = document.querySelector('.output');
+            const progress = document.querySelector('.progress');
+            function blobSlice(file, start = 0, end = 0) {
+                console.log(file)
+                if (!file) {
+                    return console.warn('数据为空')
+                }
+                const blob = new Blob(file);
+                return blob.slice(start, end);
+            }
+            file.addEventListener('change', (e) => {
+                let info = "",
+                    files = e.target.files,
+                    reader = new FileReader(),
+                    blob = blobSlice(files[0], 0, 32);
+                if (blob) {
+                    reader.onerror = function () {
+                        output.innerHTML = "Could not read file, error code is " + reader.error.code;
+                    }
+                    reader.onload =  function() { 
+                        output.innerHTML = reader.result; 
+                    };
+                } else {
+                    console.log("Your browser doesn't support slice().");
+                }
+            });
+        </script>
+    </body>
+</html>

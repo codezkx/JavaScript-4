@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" title="我是link" href="./styleSheets.css">
+        <title>事件冒泡</title>
+    </head>
+    <body>
+        <div class="myDiv">
+            我是div
+        </div>
+        <script type="text/javascript">
+            // 下面是冒泡规则  div -> body -> html -> window  向父节点传递触发监听事件
+
+            const divEl = document.querySelector('.myDiv');
+            const listenerClick = (event) => {
+                console.log('div event:', event.target);
+            };
+            const bodyListenerClick = (event) => {
+                console.log('body event:', event.target);
+            };
+            const htmlListenerClick = (event) => {
+                console.log('html event:', event.target);
+            };
+            const documentListenerClick = (event) => {
+                console.log('document event:', event.target);
+            };
+            divEl.addEventListener('click', listenerClick, {capture: false});
+            document.body.addEventListener('click', bodyListenerClick, {capture: false});
+            document.firstElementChild.addEventListener('click', htmlListenerClick, {capture: false});
+            document.addEventListener('click', documentListenerClick, {capture: false});
+
+            /* 
+                所有现代浏览器都支持事件冒泡，只是在实现方式上会有一些变化。IE5.5及早期版本会跳过<html>
+                元素（从<body>直接到 document）。现代浏览器中的事件会一直冒泡到 window 对象。
+            */
+           
+        </script>
+    </body>
+</html>

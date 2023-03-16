@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" title="我是link" href="./styleSheets.css">
+        <title>DOM事件对象event</title>
+        <style>
+            div {
+                width: 200px;
+                height: 200px;
+                background-color: blue;
+            }
+
+        </style>
+    </head>
+    <body>
+       <button  class="myBut" id="button" type="button">跨浏览器事件处理程序按钮</button>
+       <div>事件处理程序</div>
+       <a href="javascript/text">preventDefault</a>
+       <div class="stopPropagation">stopPropagation</div>
+        <script type="text/javascript">
+            /* 
+                event对象 属性/方法
+                    bubbles 布尔值 只读 表示事件是否冒泡
+
+                    cancelable 布尔值 只读 表示是否可以取消事件的默认行为
+
+                    currentTarget 元素 只读 当前事件处理程序所在的元素
+
+                    defaultPrevented 布尔值 只读 true 表示已经调用 preventDefault()方法（DOM3 Events 中新增）
+
+                    detail 整数 只读 事件相关的其他信息
+
+                    eventPhase 整数 只读 表示调用事件处理程序的阶段：1 代表捕获阶段，2 代表到达目标，3 代表冒泡阶段
+
+                    preventDefault() 函数 只读 用于取消事件的默认行为。只有 cancelable 为 true 才可以调用这个方法
+
+                    stopImmediatePropagation() 函数 只读 用于取消所有后续事件捕获或事件冒泡，并阻止调用任何后续事件处理程序（DOM3 Events 中新增）
+
+                    stopPropagation() 函数 只读 用于取消所有后续事件捕获或事件冒泡。只有 bubbles为 true 才可以调用这个方法
+
+                    target 元素 只读 事件目标
+
+                    trusted 布尔值 只读 true 表示事件是由浏览器生成的。false 表示事件是开发者通过 JavaScript 创建的（DOM3 Events 中新增）
+
+                    type 字符串 只读 被触发的事件类型
+
+                    View AbstractView 只读 与事件相关的抽象视图。等于事件所发生的 window 对象
+            
+            */
+
+            const butEl = document.querySelector('.myBut');
+            
+            // butEl.addEventListener('click', (event) => {
+            //     console.log(event.currentTarget);
+            // }, false);
+
+            // document.body.addEventListener('click', (event) => {
+            //     console.log(event.currentTarget);
+            // }, false);
+
+            const setEventStyleMap = (event) => {
+                return {
+                    click: () => (console.log('Clicked')),
+                    mouseover: () => (event.target.style.backgroundColor = 'red'),
+                    mouseout: () => (event.target.style.backgroundColor = ''),
+                };
+            };
+
+            const divEl = document.querySelector('div');
+            divEl.addEventListener('click', (event) => {
+                const eventStyleMap = setEventStyleMap(event);
+                // console.log(event.type); // 获取事件类型
+                eventStyleMap[event.type]();
+            }, false)
+
+            divEl.addEventListener('mouseover', (event) => {
+                const eventStyleMap = setEventStyleMap(event);
+                eventStyleMap[event.type]();
+            }, false);
+
+            divEl.addEventListener('mouseout', (event) => {
+                const eventStyleMap = setEventStyleMap(event);
+                eventStyleMap[event.type]();
+            }, false);
+
+            /* 
+                event.preventDefault(); // 取消默认行为
+            */
+            const aEl = document.querySelector('a');
+            aEl.addEventListener('click', (event) => {
+                event.preventDefault() // 取消了超链接跳转
+            })
+
+            /* 
+                stopPropagetion: 阻止事件流在DOM结构中的传播
+            */
+            const stopPropagation = document.querySelector('.stopPropagation');
+            stopPropagation.addEventListener('click', (event) => {
+                console.log(event.eventPhase, '判断事件处理那个阶段') // 1 代表捕获阶段，2 代表到达目标，3 代表冒泡阶段
+                event.stopPropagation(); // 阻止事件流在DOM结构中传播
+            });
+
+            document.body.addEventListener('click', (event) => {
+                console.log('body元素捕获事件是否被stopPropagetion 阻止')
+            }, true);
+            document.body.addEventListener('click', (event) => {
+                console.log('body元素冒泡事件是否被stopPropagetion 阻止')
+            }, false);
+        </script>
+    </body>
+</html>

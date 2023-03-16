@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>鼠标事件</title>
+        <style>
+            body {
+                height: 2000px;
+            }
+
+            .myDiv1 {
+                width: 200px;
+                height: 200px;
+                background-color: blue;
+            }
+
+            .myDiv2 {
+                width: 200px;
+                height: 200px;
+                background-color: red;
+            }
+        </style>
+    </head>
+    <!-- body 是否加载完成 -->
+    <body>
+        <div class="myDiv1"></div>
+        <div class="myDiv2"></div>
+
+        <script type="text/javascript">
+            /* 
+                鼠标事件：DOM3 Events定义了 9 种鼠标事件。
+                 click：在用户单击鼠标主键（通常是左键）或按键盘回车键时触发。这主要是基于无障碍的考虑，让键盘和鼠标都可以触发 onclick 事件处理程序。
+                 dblclick：在用户双击鼠标主键（通常是左键）时触发。这个事件不是在 DOM2 Events 中定义的，但得到了很好的支持，DOM3 Events 将其进行了标准化。
+                 mousedown：在用户按下任意鼠标键时触发。这个事件不能通过键盘触发。
+                 mouseenter：在用户把鼠标光标从元素外部移到元素内部时触发。这个事件不冒泡，也不会在光标经过后代元素时触发。mouseenter 事件不是在 DOM2 Events 中定义的，而是 DOM3 Events中新增的事件。
+                 mouseleave：在用户把鼠标光标从元素内部移到元素外部时触发。这个事件不冒泡，也不会在光标经过后代元素时触发。mouseleave 事件不是在 DOM2 Events 中定义的，而是 DOM3 Events中新增的事件。
+                 mousemove：在鼠标光标在元素上移动时反复触发。这个事件不能通过键盘触发。
+                 mouseout：在用户把鼠标光标从一个元素移到另一个元素上时触发。移到的元素可以是原始元素的外部元素，也可以是原始元素的子元素。这个事件不能通过键盘触发。
+                 mouseover：在用户把鼠标光标从元素外部移到元素内部时触发。这个事件不能通过键盘触发。
+                 mouseup：在用户释放鼠标键时触发。这个事件不能通过键盘触发。
+                鼠标事件还有一个名为滚轮事件的子类别。滚轮事件只有一个事件 mousewheel，反映的是鼠标滚轮或带滚轮的类似设备上滚轮的交互。
+
+                事件执行顺序
+                    (1) mousedown
+                    (2) mouseup
+                    (3) click
+                    (4) mousedown
+                    (5) mouseup
+                    (6) click
+                    (7) dblclick
+            */
+            const divEl = document.querySelector('.myDiv1'); // 注意点击事件
+            // divEl.addEventListener('mousedown', (event) => {
+            //     typePrint(event);
+            // });
+
+            // divEl.addEventListener('mouseup', (event) => {
+            //     typePrint(event);
+            // });
+
+            // divEl.addEventListener('click', (event) => {
+            //     typePrint(event);
+            // });
+
+            // divEl.addEventListener('dblclick', (event) => {
+            //     typePrint(event);
+            // });
+
+            const clickClaaBack = (event) => {
+                typePrint(event)
+            }
+
+            const doClickEvent = (el, type, cb) => {
+                el.addEventListener(type, cb)
+            }
+
+            const clickEvent = [
+                {
+                    eventType: 'mousedown',
+                    event: clickClaaBack,
+                },
+                {
+                    eventType: 'mouseup',
+                    event: clickClaaBack,
+                },
+                {
+                    eventType: 'click',
+                    event: clickClaaBack,
+                },
+                {
+                    eventType: 'dblclick',
+                    event: clickClaaBack,
+                },
+                {
+                    eventType: 'click',
+                    event: clickClaaBack,
+                },
+                {
+                    eventType: 'dblclick',
+                    event: clickClaaBack,
+                },
+
+
+            ];
+            clickEvent.forEach(item => {
+                doClickEvent(divEl, item.eventType, item.event);
+            });
+
+            const typePrint = (event) => (console.log('事件类型为:', event.type));
+
+            const divEl1 = document.querySelector('.myDiv2');
+
+            divEl1.addEventListener('mouseenter', (event) => {
+                typePrint(event);
+            });
+
+            divEl1.addEventListener('mouseleave', (event) => {
+                typePrint(event);
+            })
+
+            document.body.addEventListener('mouseenter', (event) => {
+                typePrint(event);
+                console.log('mouseenter 不支持冒泡');
+            }, false);
+
+            document.body.addEventListener('mouseleave', (event) => {
+                typePrint(event);
+                console.log('mouseleave 不支持冒泡');
+            }, false);
+
+            divEl1.addEventListener('mouseover', (event) => {
+                typePrint(event);
+            });
+
+            divEl1.addEventListener('mouseout', (event) => {
+                typePrint(event);
+            });
+
+            divEl1.addEventListener('mousemove', (event) => {
+                typePrint(event);
+            })
+
+            divEl1.addEventListener('mousewheel', (event) => {
+                typePrint(event); // 笔记本的触摸版不能触发
+            })
+
+
+            const mouseMoveEventMap = [
+                {
+                    eventType: 'mouseenter',
+                    event: null,
+                },
+                {
+                    eventType: 'mouseleave',
+                    event: null,
+                }
+            ]
+
+
+
+
+        </script>
+    </body>
+</html>

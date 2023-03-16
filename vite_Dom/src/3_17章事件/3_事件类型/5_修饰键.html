@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>修饰键</title>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                height: 2000px;
+                
+            }
+
+            .myDiv {
+                width: 200px;
+                height: 200px;
+                background-color: blue;
+            }
+
+        </style>
+    </head>
+    <!-- body 是否加载完成 -->
+    <body>
+        <div class="myDiv"></div>
+
+        <script type="text/javascript">
+            /* 
+                DOM 规定了 4 个属性来表示这几个修饰键的状态：shiftKey、ctrlKey、altKey 和 metaKey。  键位加上点击
+            
+            */
+
+            const myDiv = document.querySelector('.myDiv');
+            myDiv.addEventListener('click', (event) => {
+                console.log(event)
+                console.log('shiftKey:', event.shiftKey, 'ctrlKey:', event.ctrlKey, 'altKey:', event.altKey, 'metaKey:', event.metaKey);
+            })
+        </script>
+    </body>
+</html>

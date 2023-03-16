@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" title="我是link" href="./styleSheets.css">
+        <title>事件捕获</title>
+        <style>
+            html {
+                background-color: aliceblue;
+                height: 600px;
+            }
+
+            body {
+                background-color: aquamarine;
+                height: 400px;
+            }
+
+            div {
+                background-color: bisque;
+                height: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="myDiv">
+            我是div
+        </div>
+        <script type="text/javascript">
+            const divEl = document.querySelector('.myDiv');
+            const listenerClick = (event) => {
+                console.log('div event:', event.target);
+            };
+            const bodyListenerClick = (event) => {
+                console.log('body event:', event.target);
+            };
+            const htmlListenerClick = (event) => {
+                console.log('html event:', event.target);
+            };
+            const documentListenerClick = (event) => {
+                console.log('document event:', event.target);
+            };
+            divEl.addEventListener('click', listenerClick, {capture: true});
+            document.body.addEventListener('click', bodyListenerClick, {capture: true});
+            document.firstElementChild.addEventListener('click', htmlListenerClick, {capture: true});
+            document.addEventListener('click', documentListenerClick, {capture: true});
+
+            /* 
+                事件捕获：document -> html -> body -> div  从根节点向目标节点层层触发监听事件
+            */
+        </script>
+    </body>
+</html>

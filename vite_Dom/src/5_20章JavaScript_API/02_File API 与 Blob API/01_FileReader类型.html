@@ -1,0 +1,66 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <title>File Reader</title> 
+        <style>
+            div {
+                box-sizing: border-box;
+                width: 100px;
+                height: 20px;
+                padding: 0 10px;
+                margin: 10px 0;
+                color: #FFF;
+                background-color: #000;
+            }
+        </style>
+    </head> 
+    <body>
+        <input id="int-file" type="file" name="file">
+        <div class="output">1</div>
+        <div class="progress">1</div>
+        <script>
+            /* 
+                FileReader:
+                     readAsText(file, encoding)：从文件中读取纯文本内容并保存在 result 属性中。第二个参数表示编码，是可选的。
+                     readAsDataURL(file)：读取文件并将内容的数据 URI 保存在 result 属性中。
+                     readAsBinaryString(file)：读取文件并将每个字符的二进制数据保存在 result 属性中。
+                     readAsArrayBuffer(file)：读取文件并将文件内容以 ArrayBuffer 形式保存在 result 属性。
+            */
+            const file = document.querySelector('#int-file');
+            const output = document.querySelector('.output');
+            const progress = document.querySelector('.progress');
+
+            file.addEventListener('change', (e) => {
+                let info = '',
+                    files = e.target.files,
+                    type = 'default',
+                    reader = new FileReader();
+                if (/image/.test(files[0].type)) {
+                    reader.readAsDataURL(files[0]);
+                    type = 'image';
+                } else {
+                    reader.readAsText(files[0]);
+                    type = 'text'
+                }
+                console.log(reader)
+                reader.onerror = function () {
+                    // code。这个错误码的值可能是 1（未找到文件）、2（安全错误）、3（读取被中断）、4（文件不可读）或 5（编码错误）。
+                    output.innerHTML = "Could not read file, error code is " + eader.error.code;
+                }
+                reader.onprogress = function(event) { // progress 事件每 50 毫秒就会触发一次
+                    console.log(event)
+                    if (event.lengthComputable) { 
+                        progress.innerHTML = `${event.loaded}/${event.total}`; 
+                    } 
+                };
+                reader.onload = function() {  // load 事件会在文件成功加载后触发。
+                    const fileTypeMap = {
+                        image: `<img src="${reader.result}">`,
+                        text: reader.result
+                    } 
+                    output.innerHTML = fileTypeMap[type]; 
+                };
+            })
+        </script>
+    </body>
+</html>

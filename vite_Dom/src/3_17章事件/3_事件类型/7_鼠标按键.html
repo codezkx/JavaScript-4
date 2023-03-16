@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>相关元素</title>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                height: 2000px;
+                
+            }
+
+            .myDiv1 {
+                width: 200px;
+                height: 200px;
+                background-color: blue;
+            }
+
+            .myDiv2 {
+                width: 200px;
+                height: 200px;
+                background-color: red;
+            }
+
+        </style>
+    </head>
+    <!-- body 是否加载完成 -->
+    <body>
+        <div class="myDiv1"></div>
+        <div class="myDiv2"></div>
+
+        <script type="text/javascript">
+            /* 
+                event.button 属性，但这个属性的值与前面说的完全不同：
+                     0，表示没有按下任何键；
+                     1，表示按下鼠标主键；
+                     2，表示按下鼠标副键；
+                     3，表示同时按下鼠标主键、副键；
+                     4，表示按下鼠标中键；
+                     5，表示同时按下鼠标主键和中键；
+                     6，表示同时按下鼠标副键和中键；
+                     7，表示同时按下 3 个键。
+            */
+
+            const divEL1 = document.querySelector('.myDiv1');
+            const divEL2 = document.querySelector('.myDiv2');
+            divEL1.addEventListener('mouseover', (event) => {
+                console.log('mouseover 相关元素' ,event.relatedTarget);
+            });
+            divEL2.addEventListener('mouseout', (event) => {
+                console.log('mounseout 相关元素' ,event.relatedTarget);
+            });
+        </script>
+    </body>
+</html>

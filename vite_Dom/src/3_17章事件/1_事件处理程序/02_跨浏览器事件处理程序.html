@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" title="我是link" href="./styleSheets.css">
+        <title>跨浏览器事件处理程序</title>
+    </head>
+    <body>
+       <button  class="myBut" id="button" type="button">跨浏览器事件处理程序按钮</button>
+        <script type="text/javascript">
+            /* 
+                // DOM0、DOM2、IE 的事件程序写法
+                DOM0
+                    element.事件类型(onclick) = 事件处理程序
+                DOM2
+                    element.addEventListener('click', 事件处理程序)
+                IE
+                    element.attachEvent('onclick', 事件处理程序)
+
+                // 删除事件处理程序 除了IE其他都一样
+                IE
+                    element.detachEvent('onclick', attachEvent的事件处理程序)
+            */
+            class EventUtil {
+                element = null;
+                handler = null;
+                type = null;
+                constructor(element, type,handler) {
+                    this.element = element;
+                    this.type = type;
+                    this.handler = handler;
+                }
+
+                addHandler() {
+                    if (!this.el) {
+                        new Error('element is null');
+                    };
+                    if (this.element.addEventListener) {
+                        this.element.addEventListener(this.type, this.handler);
+                    } else if (this.element.attachEvent) {
+                        this.element.attachEvent('on' + this.type, this.handler);
+                    } else {
+                        this.element[`on${this.type}`] = this.handler;
+                    };
+                }
+
+                removeHandler() {
+                    if (!this.el) {
+                        new Error('element is null');
+                    };
+                    if (this.element.addEventListener) {
+                        this.element.removeEventListener(this.type, this.handler);
+                    } else if (this.element.attachEvent) {
+                        this.element.detachEvent('on' + this.type, this.handler);
+                    } else {
+                        this.element[`on${this.type}`] = null;
+                    };
+                }
+            }
+
+            const handlerEvent = function(event) {
+                console.log('我是处理事件');
+            };
+
+            const butEl = document.querySelector('.myBut');
+
+            const browser = new EventUtil(butEl, 'click', handlerEvent);
+
+            browser.addHandler()
+
+            // browser.removeHandler()
+
+            /* 
+                这里的 addHandler()和 removeHandler()方法并没有解决所有跨浏览器一致性问题，比如 IE
+的作用域问题、多个事件处理程序执行顺序问题等。不过，这两个方法已经实现了跨浏览器添加和移除
+事件处理程序。另外也要注意，DOM0 只支持给一个事件添加一个处理程序。好在 DOM0 浏览器已经
+很少有人使用了，所以影响应该不大。
+            
+            */
+
+        </script>
+    </body>
+</html>

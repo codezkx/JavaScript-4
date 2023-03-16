@@ -1,0 +1,25 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+    <title>文本编码</title> 
+    </head> 
+    <body>
+        <script>
+            // 文本编码
+            const textEncoder = new TextEncoder();
+            console.log(textEncoder);
+            const docodedText = 'foo';
+            const encoderText = textEncoder.encode(textEncoder);
+            console.log(encoderText)
+
+            const fooArr = new Uint8Array(4);
+            const fooResult = textEncoder.encodeInto('foo', fooArr);
+            console.log(fooResult)
+            console.log(fooArr)
+            
+            // 流编码
+            // TextEncoderStream
+            
+        </script>
+    </body>
+</html>

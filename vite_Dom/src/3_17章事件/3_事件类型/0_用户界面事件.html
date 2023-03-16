@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DOM事件对象event</title>
+        <style>
+            body {
+                height: 2000px;
+            }
+
+            div {
+                width: 200px;
+                height: 200px;
+                background-color: blue;
+            }
+        </style>
+    </head>
+    <!-- body 是否加载完成 -->
+    <body onload="console.log('body 加载完成')"  onunload="console.log('body 以卸载')">
+       <div>事件处理程序</div>
+       <img
+        class="currentImg"
+        id="currentImg"
+        onload="console.log('图片加载成功')"
+        src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F202002%2F12%2F20200212204040_QF5LB.jpeg&amp;refer=http%3A%2F%2Fc-ssl.duitang.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1678344823&amp;t=cec90a88c603a6cb7cc93b96a94ab4db"
+        width="257.10267229255"
+        height="457"
+        style="top: 0px; left: 321px; width: 239.662px; height: 426px; cursor: pointer;"
+        log-rightclick="p=5.102"
+        title="点击查看图片来源">
+        <a href="../2_事件对象/0_DOM事件对象event.html">unload</a>
+        <script type="text/javascript">
+            /* 
+                 load：在 window 上当页面加载完成后触发，在窗套（<frameset>）上当所有窗格（<frame>）都加载完成后触发，在<img>元素上当图片加载完成后触发，在<object>元素上当相应对象加载完成后触发。
+                 unload：在 window 上当页面完全卸载后触发，在窗套上当所有窗格都卸载完成后触发，在<object>元素上当相应对象卸载完成后触发。
+                 abort：在<object>元素上当相应对象加载完成前被用户提前终止下载时触发。
+                 error：在 window 上当 JavaScript 报错时触发，在<img>元素上当无法加载指定图片时触发，在<object>元素上当无法加载相应对象时触发，在窗套上当一个或多个窗格无法完成加载时触发。
+                 select：在文本框（<input>或 textarea）上当用户选择了一个或多个字符时触发。
+                 resize：在 window 或窗格上当窗口或窗格被缩放时触发。
+                 scroll：当用户滚动包含滚动条的元素时在元素上触发。<body>元素包含已加载页面的滚动条。
+            */
+
+
+            /* 
+                1、load事件注意事项：
+                    这是使用 addEventListener()方法来指定事件处理程序。与其他事件一样，事件处理程序会接
+                        收到一个 event 对象。这个 event 对象并没有提供关于这种类型事件的额外信息，虽然在 DOM 合规
+                        的浏览器中，event.target 会被设置为 document，但在 IE8 之前的版本中，不会设置这个对象的
+                        srcElement 属性。
+                    第二种指定 load 事件处理程序的方式是向<body>元素添加 onload 属性
+
+                    根据 DOM2 Events，load 事件应该在 document 而非 window 上触发。可是为了
+                        向后兼容，所有浏览器都在 window 上实现了 load 事件
+
+                    注意，下载图片并不一定要把<img>元素添加到文档，只要给它设置了 src 属性就会立即开始下载。
+            */
+            const imgEl = document.querySelector('img')
+            imgEl.addEventListener('load', (event) => {
+                console.log(event, 'eventsImg'); // event.target  指向document
+            });
+
+            /* 
+                2、unload 事件
+                    unload 事件一般是在从一个页面导航到另一个页面时触发，最常用于清理引用，以避免内存泄漏
+
+                    注意 根据 DOM2 Events，unload 事件应该在<body>而非 window 上触发。可是为了向后兼容，所有浏览器都在 window 上实现了 unload 事件。
+            
+            */
+
+            window.addEventListener('unload', () => {
+                console.log('页面DOM以卸载')
+            })
+
+            /* 
+                3、resize 事件
+                    当浏览器窗口被缩放到新高度或宽度时，会触发 resize 事件。
+                    注意 浏览器窗口在最大化和最小化时也会触发 resize 事件。
+
+                不同浏览器在决定何时触发 resize 事件上存在重要差异。IE、Safari、Chrome 和 Opera 会在窗口
+                    缩放超过 1 像素时触发 resize 事件，然后随着用户缩放浏览器窗口不断触发。Firefox 早期版本则只在
+                    用户停止缩放浏览器窗口时触发 resize 事件。无论如何，都应该避免在这个事件处理程序中执行过多
+                    计算。否则可能由于执行过于频繁而导致浏览器响应明确变慢。
+            */
+            window.addEventListener('resize', (event) => {
+                console.log(event, '页面缩放了');
+            });
+
+            /* 
+                4、scroll事件
+                    注意：
+                        在混杂模式下，可以通过<body>元素检测 scrollLeft 和 scrollTop 属性的变化。而在标准模式下，这些变化在除
+                        早期版的 Safari 之外的所有浏览器中都发生在<html>元素上（早期版的 Safari 在<body>上跟踪滚动位置）。 
+            
+            */
+            window.addEventListener('scroll', (event) => {
+                if (document.compatMode === 'CSS1Compat') { // document.compatMode  表示浏览器是标准模式（CSS1Compat）还是混杂模式（BackCompat）
+                    console.log(document.documentElement.scrollTop); //  不包括边框
+                } else {
+                    console.log(document.body.scrollTop);
+                }
+            });
+
+
+        </script>
+    </body>
+</html>

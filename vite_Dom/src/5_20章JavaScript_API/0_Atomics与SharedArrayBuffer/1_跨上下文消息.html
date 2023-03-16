@@ -1,0 +1,18 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+    <title>跨上下文消息</title> 
+    </head> 
+    <body>
+        <iframe src="./00_SharedArrayBuffer.html" frameborder="0"></iframe>
+        <script>
+            const iframe = document.querySelector('iframe');
+            const baseURL = iframe.contentDocument.baseURI;
+            console.log()
+            const url = window.open(baseURL);
+            console.log(url)
+            url.postMessage('你好', '*')
+
+        </script>
+    </body>
+</html>

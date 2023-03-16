@@ -1,0 +1,68 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>原生拖放</title> 
+        <style>
+            html, body {
+                padding: 0;
+                margin: 0;
+            }
+
+            div {
+                box-sizing: border-box;
+                width: 100px;
+                min-height: 20px;
+                padding: 0 10px;
+                margin: 10px 0;
+                color: #FFF;
+                background-color: #000;
+            }
+        </style>
+    </head> 
+    <body>
+        <!-- <input id="int-file" type="file" multiple name="file" draggable="true"> -->
+        <div class="drag" draggable="true">1</div>
+        <div class="dragTarget" draggable="true" style="width: 100px; height: 100px; background-color: aqua;"></div>
+
+        <script>
+            const drag = document.querySelector('.drag');
+            const dragTarget = document.querySelector('.dragTarget');
+            // 拖拽元素
+            drag.addEventListener('dragstart', (e) => {
+                // e.preventDefault()
+                e.dataTransfer.setData('text', JSON.stringify({a: 2}))
+                console.log(e.dataTransfer.getData("Text"))
+                console.log(e, 'dragStart');
+            });
+            drag.addEventListener('drag', (e) => {
+                console.log(e, 'drag');
+            });
+            drag.addEventListener('dragend', (e) => {
+                // e.preventDefault()
+                console.log(e, 'dragend')
+            })
+
+            // 目标元素
+            dragTarget.addEventListener('dragenter', (e) => {
+                e.preventDefault()
+                console.log(e, 'dragenter');
+                console.log(e.dataTransfer.getData('Text'))
+            });
+            dragTarget.addEventListener('dragover', (e) => {
+                console.log(e, 'dragover');
+            });
+            dragTarget.addEventListener('dragleave', (e) => {
+                e.preventDefault()
+                console.log(e.dataTransfer.getData("Text"))
+                console.log(e, 'dragleave');
+            });
+            dragTarget.addEventListener('drag', (e) => {
+                e.preventDefault()
+                console.log(e, 'drag');
+            });
+        </script>
+    </body>
+</html>

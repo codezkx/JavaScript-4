@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" title="我是link" href="./styleSheets.css">
+        <title>事件处理程序</title>
+    </head>
+    <body>
+        <div class="myDiv" onclick="console.log('我是div', event)">
+            我是div
+        </div>
+        <div onclick="showMessage(event)"> 我是div2 </div>
+        <!-- input 具有作用域链  如果这个元素是一个表单输入框，则作用域链中还会包含表单元素-->
+        <input type="text" value="click me" onclick="console.log(this.value)">
+        <script type="text/javascript">
+           /* 
+            事件意味着用户或浏览器执行的某种动作。比如，单击（click）、加载（load）、鼠标悬停
+            （mouseover）。为响应事件而调用的函数被称为事件处理程序（或事件监听器）。
+            
+                作为事件处理程序执行的代码可以访问全局作用域中的一切。
+           */
+            const showMessage = (event) => {
+                console.log('我是html处理程序', event);
+            };
+
+        </script>
+    </body>
+</html>

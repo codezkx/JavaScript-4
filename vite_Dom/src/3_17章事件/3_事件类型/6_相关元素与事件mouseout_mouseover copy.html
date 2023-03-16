@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>相关元素</title>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                height: 2000px;
+                
+            }
+
+            .myDiv1 {
+                width: 200px;
+                height: 200px;
+                background-color: blue;
+            }
+
+            .myDiv2 {
+                width: 200px;
+                height: 200px;
+                background-color: red;
+            }
+
+        </style>
+    </head>
+    <!-- body 是否加载完成 -->
+    <body>
+        <div class="myDiv1"></div>
+        <div class="myDiv2"></div>
+
+        <script type="text/javascript">
+            /* 
+                对 mouseover 和 mouseout 事件而言，还存在与事件相关的其他元素。这两个事件都涉及从一个
+                元素的边界之内把光标移到另一个元素的边界之内。对 mouseover 事件来说，事件的主要目标是获得
+                光标的元素，相关元素是失去光标的元素。类似地，对 mouseout 事件来说，事件的主要目标是失去光
+                标的元素，而相关元素是获得光标的元素。
+
+                relatedTarget  表示相关元素
+            */
+
+            const divEL1 = document.querySelector('.myDiv1');
+            const divEL2 = document.querySelector('.myDiv2');
+            divEL1.addEventListener('mouseover', (event) => {
+                console.log('mouseover 相关元素' ,event.relatedTarget);
+            });
+            divEL2.addEventListener('mouseout', (event) => {
+                console.log('mounseout 相关元素' ,event.relatedTarget);
+            });
+        </script>
+    </body>
+</html>

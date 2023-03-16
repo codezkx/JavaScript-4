@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>mousewheel事件</title>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                height: 2000px;
+                
+            }
+
+            .myDiv1 {
+                width: 200px;
+                height: 200px;
+                background-color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="myDiv1"></div>
+
+        <script type="text/javascript">
+            /* 
+                mousewheel 事件的 event 对象包含
+                鼠标事件的所有标准信息，此外还有一个名为 wheelDelta 的新属性。当鼠标滚轮向前滚动时，
+                wheelDelta 值不确定  一般用来判断鼠标是向上滚动还是向下滚动
+            
+            */
+            const divEl = document.querySelector('.myDiv1');
+            window.addEventListener('mousewheel', (event) => {
+                console.log(event.wheelDelta);
+            });
+        </script>
+    </body>
+</html>

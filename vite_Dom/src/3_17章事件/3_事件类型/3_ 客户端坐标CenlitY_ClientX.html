@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>客户端坐标</title>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                height: 2000px;
+                
+            }
+
+            .myDiv {
+                width: 200px;
+                height: 200px;
+                background-color: blue;
+            }
+
+        </style>
+    </head>
+    <!-- body 是否加载完成 -->
+    <body>
+        <div class="myDiv"></div>
+
+        <script type="text/javascript">
+            /* 
+                clientX, clientY 光标所在的位置。 注意这个坐标是针对视口而言的，与滚动位置无关
+
+                IE8 及更早版本没有在 event 对象上暴露页面坐标。不过，可以通过客户端坐标和滚动信息计算出
+                来。滚动信息可以从 document.body（混杂模式）或 document.documentElement（标准模式）的
+                scrollLeft 和 scrollTop 属性获取。
+            
+            */
+
+            const myDiv = document.querySelector('.myDiv');
+
+            document.body.addEventListener('mousemove', (event) => {
+                console.log('光标X：', event.clientX, ', 光标Y：', event.clientY);
+            });
+
+        </script>
+    </body>
+</html>

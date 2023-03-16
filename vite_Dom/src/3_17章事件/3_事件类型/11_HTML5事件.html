@@ -1,0 +1,66 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+    <title>ContextMenu Event Example</title> 
+    </head> 
+    <body>
+        <div id="myDiv">Right click or Ctrl+click me to get a custom context menu. 
+            Click anywhere else to get the default context menu.</div> 
+        <ul id="myMenu" style="position:absolute;visibility:hidden;background-color: 
+        silver"> 
+            <li><a href="http://www.somewhere.com"> somewhere</a></li> 
+            <li><a href="http://www.wrox.com">Wrox site</a></li> 
+            <li><a href="http://www.somewhere-else.com">somewhere-else</a></li> 
+        </ul>
+        <script>
+            /* 
+                html5 事件
+                oncontextmenu: 提供自定浏览器下拉菜单，或者禁用下拉菜单。以专门用于表示何时该显示上下文菜单，从而允许开发者取消默认的上下文菜单并提供自定义菜单。
+                beforeunload: 用意是给开发者提供阻止页面被卸载的机会。这个事件会在页面即将从浏览器中卸载时触发，如果页面需要继续使用，则可以不被卸载。
+                DOMContentLoaded: window 的 load 事件会在页面完全加载后触发，因为要等待很多外部资源加载完成，所以会花费较长时间。而 DOMContentLoaded 
+                    事件会在 DOM 树构建完成后立即触发，而不用等待图片、JavaScript文件、CSS 文件或其他资源加载完成。
+                
+            */
+            
+            window.addEventListener("load", (event) => { 
+                let div = document.getElementById("myDiv");
+                // 触发contextmenu事件 Windows 上是右击鼠标，在 Mac 上 是 Ctrl+单击   自定浏览器默认的菜单
+                div.addEventListener("contextmenu", (event) => {
+                    event.preventDefault(); // 阻止默认行为
+                    let menu = document.getElementById("myMenu"); 
+                    menu.style.left = event.clientX + "px"; 
+                    menu.style.top = event.clientY + "px"; 
+                    menu.style.visibility = "visible"; 
+                }); 
+                document.addEventListener("click", (event) => { 
+                    document.getElementById("myMenu").style.visibility = "hidden"; 
+                }); 
+            });
+
+            // beforeunload  需要将 event.returnValue 设置为要在确认框中显示的字符串
+            // window.addEventListener('beforeunload', function(event) {
+            //     let message = 'I\'m really going to miss you if you go.';
+            //     console.log(event);
+            //     event.returnValue= message;
+            //     return message
+            // });
+
+            // DOMContentLoaded 比 load 先执行。
+            window.addEventListener('load', function() {
+                console.log('load' ,event)
+            })
+            window.addEventListener('DOMContentLoaded', function(event) {
+                console.log('Content loaded', event)
+            })
+
+            // readystatechange事件
+            document.addEventListener('readystatechange', function(event) {
+                console.log('readystatechange' ,document.readyState)
+                // console.log(arguments.callee) // 返回函数   函数指针
+                console.log(event)
+            })
+
+            
+        </script>
+    </body>
+</html>

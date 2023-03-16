@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>样式操作</title>
+        <style>
+            .myDiv {
+                background-color: #ccc;
+                width: 200px;
+                height: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="myDiv">
+            我是一个div
+        </div>
+        <script type="text/javascript">
+            /* 
+                DOM2 HTML 给 HTMLIFrameElement（即<iframe>，内嵌窗格）类型新增了一个属性，叫
+                contentDocument。这个属性包含代表子内嵌窗格中内容的 document 对象的指针。下面的例子展示
+                了如何使用这个属性：
+                    let iframe = document.getElementById("myIframe"); 
+                    let iframeDoc = iframe.contentDocument; 
+                contentDocument 属性是 Document 的实例，拥有所有文档属性和方法，因此可以像使用其他
+                HTML 文档一样使用它。还有一个属性 contentWindow，返回相应窗格的 window 对象，这个对象上
+                有一个 document 属性。所有现代浏览器都支持 contentDocument 和 contentWindow 属性。
+            
+
+                注意 跨源访问子内嵌窗格的 document 对象会受到安全限制。如果内嵌窗格中加载了不
+                同域名（或子域名）的页面，或者该页面使用了不同协议，则访问其 document 对象会抛
+                出错误。
+            */
+        </script>
+    </body>
+</html>

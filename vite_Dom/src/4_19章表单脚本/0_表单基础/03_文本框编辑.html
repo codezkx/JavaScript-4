@@ -1,0 +1,49 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>表单字段</title> 
+    </head> 
+    <body>
+        <form
+            id="myForm"
+            name="from1"
+            action="">
+            <!-- autofocus  自动获取焦点  readonly 只读 text、search、url、tel、email、password -->
+            <div>
+                <label for="z-id-0">文本输入框</label>
+                <input 
+                    type="text" 
+                    id="z-id-0" 
+                    value="123"
+                    size="100"
+                    required
+                    dirname="fruit.dir"
+                    maxlength="5">
+            </div>
+            <div>
+                <label for="z-id-1">数字输入框</label>
+                <input 
+                    type="number"
+                    max="100"
+                    min="-2">
+            </div>
+            <div>
+                <label for="z-id-2">文本域</label>
+                <textarea 
+                    rows="3"
+                    cols="10"
+                    id="z-id-2"></textarea>
+            </div>
+           
+            <button type="subnit">Submit Form</button>
+            <button type="reset">Reset Form</button>
+        </form>
+        <script>
+
+
+        </script>
+    </body>
+</html>

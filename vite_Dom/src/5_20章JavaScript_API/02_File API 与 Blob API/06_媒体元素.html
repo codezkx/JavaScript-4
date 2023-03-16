@@ -1,0 +1,31 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>读取拖放文件</title> 
+        <style>
+            div {
+                box-sizing: border-box;
+                width: 100px;
+                min-height: 20px;
+                padding: 0 10px;
+                margin: 10px 0;
+                color: #FFF;
+                background-color: #000;
+            }
+        </style>
+    </head> 
+    <body>
+        <input id="int-file" type="file" multiple name="file" draggable="true">
+        <div class="output" >1</div>
+        <div class="progress" >2</div>
+        <script>
+            const file = document.querySelector('#int-file');
+            const output = document.querySelector('.output');
+            const progress = document.querySelector('.progress');
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+    <title>SharedArrayBuffer</title> 
+    </head> 
+    <body>
+        <script>
+            const workerScript = `
+                self.onmessage = ({date}) => {
+                    console.log(data)
+                    const view = new Uint32Arrray(data);
+                    for (let i = 0; i < 1E6; i++) {
+                        viwe[0] += 1;
+                    }
+                    selt.postMessage(null);
+                }
+            `;
+            const workerScriptBlobUrl = URL.createObjectURL(new Blob([workerScript]));
+            const workers = [];
+            for (let i = 0; i < 4; ++i) {
+                workers.push(new Worker(workerScriptBlobUrl)); // 增加一个线程；
+            }
+            console.log(workers)
+            let responseCount = 0;
+            for (const worker of workers) {
+                worker.onmessage = () => {
+                    if (++responseCount == workers.length) {
+                        console.log(`Final buffer value: ${view[0]}`);
+                    }
+                }
+            }
+            // const sharedArrayBuffer = new SharedArrayBuffer(4); // 由于安全需要一些浏览器无法使用
+            // const view = new Uint32Array(sharedArrayBuffer);
+            // view[0] = 1;
+            // for (const worker of workers) {
+            //     worker.postMessage(sharedArrayBuffer)
+            // }
+        </script>
+    </body>
+</html>

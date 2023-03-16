@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" title="我是link" href="./styleSheets.css">
+        <title>DOM事件流</title>
+        <style>
+            html {
+                background-color: aliceblue;
+                height: 600px;
+            }
+
+            body {
+                background-color: aquamarine;
+                height: 400px;
+            }
+
+            div {
+                background-color: bisque;
+                height: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="myDiv">
+            我是div
+        </div>
+        <script type="text/javascript">
+            /* 
+                事件流分为三个阶段： 捕获阶段 -> 到达目标阶段 -> 冒泡阶段
+
+            */
+            const divEl = document.querySelector('.myDiv');
+            const divListener = (event) => {
+                console.log('div event 目标元素', event);
+            };
+            divEl.addEventListener('click', divListener);
+
+            const bodyListenerClick1 = (event) => {
+                console.log('body event 捕获阶段', event);
+            };
+            document.body.addEventListener('click', bodyListenerClick1, { capture: true });  // bodyListenerClick1 事件处理程序
+
+            const bodyListenerClick2 = (event) => {
+                console.log('body event 冒泡阶段', event);
+            };
+            document.body.addEventListener('click', bodyListenerClick2, { capture: false });
+
+
+            // const htmlListenerClick = (event) => {
+            //     console.log('html event', event);
+            // };
+            // document.firstElementChild.addEventListener('click', htmlListenerClick);
+
+            // const documentListenerClick = (event) => {
+            //     console.log('document event', event)
+            // }
+            // document.addEventListener('click', documentListenerClick)
+
+
+        </script>
+    </body>
+</html>

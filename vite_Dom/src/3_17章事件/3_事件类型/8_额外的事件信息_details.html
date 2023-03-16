@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>相关元素</title>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                height: 2000px;
+                
+            }
+
+            .myDiv1 {
+                width: 200px;
+                height: 200px;
+                background-color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="myDiv1"></div>
+
+        <script type="text/javascript">
+            const divEl = document.querySelector('.myDiv1');
+            divEl.addEventListener('mousedown', (event) => {
+                console.log('额外的事件信息detail:', event.detail);
+            })
+            divEl.addEventListener('mouseup', (event) => {
+                console.log('额外的事件信息detail:', event.detail);
+
+            })
+        </script>
+    </body>
+</html>

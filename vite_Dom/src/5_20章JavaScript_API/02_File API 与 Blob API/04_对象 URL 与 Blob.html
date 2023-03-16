@@ -1,0 +1,54 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <title>对象url 与 Blob</title> 
+        <style>
+            div {
+                box-sizing: border-box;
+                width: 100px;
+                min-height: 20px;
+                padding: 0 10px;
+                margin: 10px 0;
+                color: #FFF;
+                background-color: #000;
+            }
+        </style>
+    </head> 
+    <body>
+        <input id="int-file" type="file" multiple name="file">
+        <div class="output">1</div>
+        <div class="progress">1</div>
+        <script>
+            const file = document.querySelector('#int-file');
+            const output = document.querySelector('.output');
+            const progress = document.querySelector('.progress');
+            file.addEventListener('change', (e) => {
+                console.log(e)
+                let info = '',
+                    files = e.target.files,
+                    reader = new FileReader(),
+                    url = window.URL.createObjectURL(files[0]); // blob对象
+                // if (url) {
+                //     if (/image/.test(filesp[0].type)) {
+                //         output.innerHTML = `<img src='${url}'>`
+                //     } else {
+                //         output.innerHTML = "Not an image.";
+                //     }
+                // } else {
+                //     output.innerHTML = "Your browser doesn't support object URL.";
+                // }
+
+                if (!url) {
+                    output.innerHTML = "Your browser doesn't support object URL.";
+                    return false
+                }
+                if (/image/.test(files[0].type)) {
+                    output.innerHTML = `<img src='${url}'>`
+                } else {
+                    output.innerHTML = "Not an image.";
+                }
+                window.URL.revokeObjectURL(url) // 清除URL对象  清除本地资源报错
+            })
+        </script>
+    </body>
+</html>

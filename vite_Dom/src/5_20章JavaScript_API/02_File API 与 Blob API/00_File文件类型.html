@@ -1,0 +1,31 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+    <title>File 文件类型</title> 
+    </head> 
+    <body>
+        <input id="int-file" type="file" name="file">
+        <script>
+            /* 
+                e.target.files下属性
+                     name：本地系统中的文件名。
+                     size：以字节计的文件大小。
+                     type：包含文件 MIME 类型的字符串。
+                     lastModifiedDate：表示文件最后修改时间的字符串。这个属性只有 Chome 实现了。
+            
+            */
+            const file = document.querySelector('#int-file');
+            file.addEventListener('change', (e) => {
+                let files = e.target.files, 
+                i = 0, 
+                len = e.target.files?.length ?? 0;
+                console.log(len)
+                while(i < len) {
+                    const f = files[i];
+                    console.log(`${f.name} (${f.type}, ${f.size} bytes)`);
+                    i++;
+                }
+            })
+        </script>
+    </body>
+</html>

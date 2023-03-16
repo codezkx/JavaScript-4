@@ -1,0 +1,38 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>提交表单</title> 
+    </head> 
+    <body>
+        <form
+            id="myForm"
+            name="from1"
+            action="">
+            <input type="text" value="">
+            <ul> 
+                <li><input type="radio" name="color" value="red">Red</li> 
+                <li><input type="radio" name="color" value="green">Green</li> 
+                <li><input type="radio" name="color" value="blue">Blue</li> 
+            </ul>
+            <button type="subnit">Submit Form</button>
+            <button type="reset">Reset Form</button>
+        </form>
+        <script>
+            const form = document.getElementById('myForm');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault(); // 阻止浏览器默认行为
+                console.log(e);
+            })
+            // form.submit(); 提交表单
+
+            form.addEventListener('reset', (e) => {
+                e.preventDefault(); // 阻止表单重置
+                console.log(e);
+            })
+            // form.reset(); 重置表单
+        </script>
+    </body>
+</html>

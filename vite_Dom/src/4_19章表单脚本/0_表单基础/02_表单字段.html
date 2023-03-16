@@ -1,0 +1,82 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>表单字段</title> 
+    </head> 
+    <body>
+        <form
+            id="myForm"
+            name="from1"
+            action="">
+            <!-- autofocus  自动获取焦点  readonly 只读-->
+            <input type="text"  style="cursor: not-allowed;" autofocus readonly autocomplete="off" value="">
+            <ul> 
+                <li>
+                    <label for="radio1">
+                        <input type="radio" id="radio1" name="color" value="red">
+                        <span>Red</span>
+                    </label>
+                </li> 
+                <li>
+                    <input type="radio" name="color" value="green">
+                    Green
+                </li> 
+                <li>
+                    <input type="radio" name="color" value="blue">
+                    Blue
+                </li> 
+            </ul>
+            <button type="subnit">Submit Form</button>
+            <button type="reset">Reset Form</button>
+        </form>
+        <script>
+            const form = document.getElementById('myForm');
+            console.log(form.elements) // 表单元素集合
+
+            form.addEventListener('reset', (e) => {
+                e.preventDefault(); // 阻止表单重置
+                console.log(e);
+            })
+            // form.reset(); 重置表单
+
+            /* 
+                表单字段的公共属性
+                    disabled: 布尔值，表示表单字段是否禁用
+                    form: 指针，指向表单字段所属的表单。这个属性是只读的
+                    name: 字符串，这个字段名字
+                    readOnly: 布尔值， 表示这个字段是否只读
+                    tabIndex: 数值，表示这饿字段在按TAB键时的切换顺序，
+                    type：字符串，表示字段类型，如‘checkout’、‘radio’等
+                    value: 要提交给服务器的字段值。对文件输入字段来说，这个属性时只读的，仅包含计算机上某个文件的路径
+                    
+            */
+            
+            form.addEventListener('submit', (e) => {
+                e.preventDefault(); // 阻止浏览器默认行为
+                const field = form.elements[0]
+                field.value = 'Another Value'; // 设置表单第一个的值
+                console.log(field.form === form)
+                field.focus(); // 获取元素焦点
+                field.disabled = 'disabled' // 对元素进行禁用
+                // field.type = 'checkbox' // 修改input类型
+                console.log(field.autofocus, typeof field.autofocus,'autofocus')
+            })
+
+
+            /* 
+                表单字段的公共事件
+                     blur：在字段失去焦点时触发。
+                     change：在<input>和<textarea>元素的 value 发生变化且失去焦点时触发，或者在<select>元素中选中项发生变化时触发。
+                     focus：在字段获得焦点时触发。
+                
+                注意 blur 和 change 事件的关系并没有明确定义。在某些浏览器中，blur 事件会先于
+                    change 事件触发；在其他浏览器中，触发顺序则相反。因此不能依赖这两个事件触发的
+                    顺序，必须区分时要多加注意。
+            */
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>mousewheel事件</title>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                height: 2000px;
+                
+            }
+
+            .myDiv {
+                width: 200px;
+                height: 200px;
+                background-color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="myDiv" contenteditable></div>
+        <input type="text" value="">
+        <button>1</button>
+        <script type="text/javascript">
+            /* 
+                触发下面三个事件的元素有可编辑按钮和设置了编辑属性的元素contenteditable， button获取焦点时可触发
+                键盘事件包含 3 个事件：
+                     keydown，用户按下键盘上某个键时触发，而且持续按住会重复触发。
+                     keypress，用户按下键盘上某个键并产生字符时触发，而且持续按住会重复触发。Esc 键也会
+                    触发这个事件。DOM3 Events 废弃了 keypress 事件，而推荐 textInput 事件。
+                     keyup，用户释放键盘上某个键时触发。
+
+                注意，这里 keydown 和 keypress 事件会在文本框出现变化之前触发，而 keyup
+                    事件会在文本框出现变化之后触发。如果一个字符键被按住不放，keydown 和 keypress 就会重复触
+                    发，直到这个键被释放。
+                对于非字符键，在键盘上按一下这个键，会先触发 keydown 事件，然后触发 keyup 事件。如果按
+                住某个非字符键不放，则会重复触发 keydown 事件，直到这个键被释放，此时会触发 keyup 事件。
+
+                charCode： 表示按键的字符编码
+                keyCode： 表示按键的键嘛
+                 
+                DOM3
+                    新添加了key 和 char 代替charCode和keyCode，。char 属性在按下字符键时与 key 类似，在按下非字符键时为 null。
+                    由于缺乏跨浏览器支持，因此不建议使用 key、keyIdentifier、和 char。
+
+                    location 的属性
+                        表示是在哪里按的键。可能的值为：0 是默认键，1 是左边（如左边的 Alt 键），2 是右边（如右边的 Shift 键），3 是数字键盘，4 是
+                        移动设备（即虚拟键盘），5 是游戏手柄（如任天堂 Wii 控制器）。IE9 支持这些属性。Safari 和 Chrome
+                        支持一个等价的 keyLocation 属性。
+
+                    
+            
+            */
+
+            const intEl = document.querySelector('.myDiv');
+            intEl.addEventListener('keydown', function(event) {
+                console.log('keydown' ,event);
+                if (event.getModifierState) {
+                    // console.log('判断按钮是否激活', event.getModifierState('(Shift'));
+                }
+            })
+            intEl.addEventListener('keypress', function(event) {
+                console.log('keypress', event);
+            })
+            intEl.addEventListener('keyup', function(event) {
+                console.log('keyup', event);
+            })
+
+
+            /* 
+                event 对象上还有一个名为 inputMethod 的属性，该属性表示向控件中输入文本的手段
+                     0，表示浏览器不能确定是什么输入手段；
+                     1，表示键盘；
+                     2，表示粘贴；
+                     3，表示拖放操作；
+                     4，表示 IME；  5，表示表单选项；
+                     6，表示手写（如使用手写笔）；
+                     7，表示语音；
+                     8，表示组合方式；
+                     9，表示脚本。
+            */
+
+            const inputEl = document.querySelector('input');
+            inputEl.addEventListener('textInput', function(event) {
+                console.log(event.data)
+                if (+event.data === 2) {
+                    event.target.value = ''
+                    inputEl.placeholder = '输入的值不能为2'
+                }
+            })
+
+        </script>
+    </body>
+</html>
