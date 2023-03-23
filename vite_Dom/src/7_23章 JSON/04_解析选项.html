@@ -1,0 +1,47 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>解析选项</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            let book = { 
+                title: "Professional JavaScript", 
+                authors: [ 
+                    "Nicholas C. Zakas", 
+                    "Matt Frisbie" 
+                ], 
+                edition: 4, 
+                cb: function(){},
+                year: 2017, 
+                releaseDate: new Date(2017, 11, 1) 
+            }; 
+            let jsonText = JSON.stringify(book);
+            console.log(jsonText) // {"title":"Professional JavaScript","authors":["Nicholas C. Zakas","Matt Frisbie"],"edition":4,"year":2017,"releaseDate":"2017-11-30T16:00:00.000Z"}
+            let bookCopy = JSON.parse(jsonText, (key, value) => {
+                if (key === 'edition') {
+                    return undefined
+                }
+                if (key == "releaseDate") {
+                    new Date(value)
+                }
+                return value
+            }); // 会过过滤undefined
+            console.log(bookCopy)
+        </script>
+    </body>
+</html>

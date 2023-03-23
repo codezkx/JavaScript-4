@@ -1,0 +1,58 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>升级自定义元素</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            /* 
+                如果自定义元素已经有定义，那么 CustomElementRegistry.get()方法会返回相应自定义元素的类。
+                类似地，CustomElementRegistry.whenDefined()方法会返回一个期约，
+            
+            */
+            customElements.whenDefined('x-foo').then(res => console.log('defined!'));
+            
+            console.log(customElements.get('x-foo'));
+
+            customElements.define('x-foo', class FooElement{});
+            console.log(customElements.get('x-foo'));
+
+            /* 
+                连接到 DOM 的元素在自定义元素有定义时会 自动升级。如果想在元素连接到 DOM 之前强制升级，可以使用 CustomElementRegistry.upgrade()方法
+
+            */
+
+            // 在自定义元素定义之前会创建HTMLUnknownElement 对象
+            // const fooElement = document.createElement('x-foo');
+
+            // // 创建自定义元素
+            // class FooElement extends HTMLElement {
+            // }
+
+            // 创建自定义元素
+            // customElements.define('x-foo', FooElement);
+            // console.log(fooElement instanceof FooElement);
+
+            // 强制升级
+            // customElements.upgrade(fooElement);
+            // console.log(fooElement instanceof FooElement)
+
+
+
+        </script>
+    </body>
+</html>

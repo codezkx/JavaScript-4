@@ -1,0 +1,66 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>序列化选项</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            /* 
+                JSON.stringify()方法除了要序列化的对象，还可以接收两个参数
+                    shsh
+            */
+
+            let book = { 
+                title: "Professional JavaScript", 
+                0: 1,
+                authors: [ 
+                    "Nicholas C. Zakas", 
+                    "Matt Frisbie",
+                    undefined, // 处理成null
+                    null,
+                    function(){},  // 处理成null
+                ], 
+                o: {
+                    empt: undefined,
+                    cb: function() {},
+                    num: 1,
+                },
+                unT: undefined,
+                cb: function(){},
+                edition: 4, 
+                year: 2017 
+            };
+            let jsonTest = JSON.stringify(book) // {"0":1,"title":"Professional JavaScript","authors":["Nicholas C. Zakas","Matt Frisbie",null,null,null],"edition":4,"year":2017}
+            let jsonText = JSON.stringify(book, 'title'); // 当第二个参数时对象或者时字符串等基础类型时会返回所有的序列化值
+            console.log(jsonText)
+
+            const jsonFn = JSON.stringify(book, (key, value) => { // 处理序列化对象中需要处理的值  ， 如果序列化对象中有不同子对象且对象key相同，则有可能序列化成同一结果。
+                switch(key) { 
+                    case "authors": 
+                        return value.join(",") 
+                    case "year": 
+                        return 5000; 
+                    case "edition": 
+                        return undefined; 
+                    default: 
+                        return value; 
+                }
+            })
+            console.log(jsonFn)
+        </script>
+    </body>
+</html>

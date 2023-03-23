@@ -1,0 +1,63 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>可读流</title> 
+        <style>
+            html, body {
+                padding: 0;
+                margin: 0;
+            }
+
+            div {
+                box-sizing: border-box;
+                width: 100px;
+                min-height: 20px;
+                padding: 0 10px;
+                margin: 10px 0;
+                color: #FFF;
+                background-color: #000;
+            }
+        </style>
+    </head> 
+    <body>
+        <div class="drag" draggable="true">1</div>
+        <input type="text" class="dragTarget" draggable="true">
+        <script>
+            async function* ints() {
+                for (let i = 0; i < 5; i++) {
+                    yield await new Promise((resolve) => setTimeout(resolve, 1000, i));
+                }
+            }
+            const readableStream = new ReadableStream({
+                async start(controller) {
+                    for await (let chunk of ints()) {
+                        console.log(chunk)
+                        controller.enqueue(chunk); //  enqueue() 方法将给定数据块送入到关联的流中。
+                    }
+                    controller.close(); // 关闭关联流
+                }
+            })
+            console.log(readableStream.locked); // 返回可读流是否锁定到 reader
+
+            /* 
+                getReader() 方法会创建一个 reader，并将流锁定。只有当前 reader 将流释放后，其他 reader 才能使用。
+            */
+            const readableStreamDefaultReader = readableStream.getReader();
+            console.log(readableStream.locked); // 返回可读流是否锁定到 reader
+            (async function () {
+                while(true) {
+                    const { done, value } = await readableStreamDefaultReader.read(); // 读取流
+                    if (done) {
+                        break;
+                    } else {
+                        console.log(value);
+                    }
+                    console.log(await readableStreamDefaultReader.read(), 'read')
+                }
+            })();
+        </script>
+    </body>
+</html>

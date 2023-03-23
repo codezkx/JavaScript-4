@@ -1,0 +1,43 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>toJSON方法</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            /* 
+                有时候，对象需要在 JSON.stringify()之上自定义 JSON 序列化。此时，可以在要序列化的对象中添加 toJSON()方法，序列化时会基于这个方法返回适当的 JSON 表示。
+                注意，箭头函数不能用来定义 toJSON()方法。主要原因是箭头函数的词法作用域是全局作用域
+            */
+
+            let book = { 
+                title: "Professional JavaScript", 
+                authors: [ 
+                    "Nicholas C. Zakas", 
+                    "Matt Frisbie"
+                ], 
+                edition: 4, 
+                year: 2017, 
+                toJSON: function() { 
+                    return this.title; // 序列化只返回title属性
+                }
+            }; 
+            let jsonText = JSON.stringify(book);
+            console.log(jsonText) // 返回序列化对象中的title属性
+        </script>
+    </body>
+</html>

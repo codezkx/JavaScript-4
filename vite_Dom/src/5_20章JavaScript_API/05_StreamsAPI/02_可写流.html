@@ -1,0 +1,60 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>可写流</title> 
+        <style>
+            html, body {
+                padding: 0;
+                margin: 0;
+            }
+
+            div {
+                box-sizing: border-box;
+                width: 100px;
+                min-height: 20px;
+                padding: 0 10px;
+                margin: 10px 0;
+                color: #FFF;
+                background-color: #000;
+            }
+        </style>
+    </head> 
+    <body>
+        <div class="drag" draggable="true">1</div>
+        <input type="text" class="dragTarget" draggable="true">
+        <script>
+            async function* ints() {
+                for (let i = 0; i < 5; i++) {
+                    yield await new Promise((resolve) => setTimeout(resolve, 1000, [{a: 1}]));
+                }
+            }
+            const readableStream = new ReadableStream({
+                write(value) { // 写入方法
+                    console.log(value, 'readable');
+                }
+            });
+            const writableStream = new WritableStream({
+                write(value) {
+                    console.log(value, 'writable');  // 写入的数据
+                }
+            });
+            console.log(writableStream.locked); // 返回可读流是否锁定到 reader
+
+            /*  方法返回一个新的 WritableStreamDefaultWriter 实例并且将流锁定到该实例。当流被锁定时，直到这个流被释放之前，不能获取其他 writer。 */
+            const writableStreamDefaultWriter = writableStream.getWriter(); // 返回writableStreamDefaultWriter 对象  
+            console.log(writableStream.locked); // 当调用getWriter方法时 locked属性会变为true
+
+            (async function () {
+                for await (let chunk of ints()) {
+                    await writableStreamDefaultWriter.ready;
+                    // console.log(writableStreamDefaultWriter.ready);
+                    writableStreamDefaultWriter.write(chunk); // 写入块
+                }
+                writableStreamDefaultWriter.close();
+            })();
+        </script>
+    </body>
+</html>

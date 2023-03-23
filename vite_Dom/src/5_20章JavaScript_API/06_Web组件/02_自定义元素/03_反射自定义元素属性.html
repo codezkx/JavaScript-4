@@ -1,0 +1,83 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>反射自定义元素属性</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            /* 
+             自定义元素既是 DOM 实体又是 JavaScript 对象，因此两者之间应该同步变化。换句话说，对 DOM
+                的修改应该反映到 JavaScript 对象，反之亦然。要从 JavaScript 对象反射到 DOM，常见的方式是使用获
+                取函数和设置函数。
+                            
+            */
+            // JS -> DOM
+            // document.body.innerHTML = '<x-foo>1</x-foo>';
+            // class FooElement extends HTMLElement {
+            //     constructor() {
+            //         super();
+            //         this.bar  = true;
+            //     }
+
+            //     get bar() {
+            //         return this.getAttribute('bar');
+            //     }
+
+            //     set bar(value) {
+            //         this.setAttribute('bar', value)
+            //     }
+            // }
+
+            // customElements.define('x-foo', FooElement);
+            // console.log(document.body.innerHTML);
+
+            // DOM -> JS
+            class FooElement extends HTMLElement {
+                constructor() {
+                    super();
+                }
+
+                get bar() {
+                    return this.getAttribute('bar');
+                }
+
+                set bar(value) {
+                    this.setAttribute('bar', value);
+                }
+
+                static get observedAttributes() {
+                    return ['bar']; // 需要监听属性name
+                }
+
+                attributeChangedCallback(name, odlValue, newValue) {
+                    console.log('attributeChangedCallback', name, odlValue, newValue);
+                    if (odlValue === newValue) {
+                        return console.warn('属性重复，请重新设置')
+                    }
+                    // console.log('attributeChangedCallback', name, odlValue, newValue);
+                    this[name] = newValue;
+                }
+            }
+
+            customElements.define('x-foo', FooElement);
+            document.body.innerHTML = `<x-foo bar="false"></x-foo>`;
+            const xFooEl = document.querySelector('x-foo');
+            xFooEl.setAttribute('bar', '自定义元素');
+
+        </script>
+    </body>
+</html>

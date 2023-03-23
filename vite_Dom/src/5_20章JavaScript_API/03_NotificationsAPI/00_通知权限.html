@@ -1,0 +1,47 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>通知权限</title> 
+        <style>
+            html, body {
+                padding: 0;
+                margin: 0;
+            }
+
+            div {
+                box-sizing: border-box;
+                width: 100px;
+                min-height: 20px;
+                padding: 0 10px;
+                margin: 10px 0;
+                color: #FFF;
+                background-color: #000;
+            }
+        </style>
+    </head> 
+    <body>
+        <div class="drag" draggable="true">1</div>
+        <input type="text" class="dragTarget" draggable="true">
+        <script>
+            /* 
+
+            
+            */
+            const notification = new Notification('1')
+            const permission = Notification.requestPermission()
+            permission.then(permission => {
+                /* 
+                    "granted"值意味着用户明确授权了显示通知的权限。
+                    如果用户拒绝授权，这个值就是"denied"。一旦拒绝，就无法通过编程方式挽回，因为不可能再触发授权提示。
+                */
+                console.log('User responded to permission request:', permission)
+            }).catch(err => {
+                console.log(err)
+            })
+            console.log(notification)
+        </script>
+    </body>
+</html>

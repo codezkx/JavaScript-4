@@ -1,0 +1,56 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>错误处理</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            /* 
+                。message 属性是唯一一个在 IE、Firefox、Safari、
+                Chrome 和 Opera 中都有的属性，尽管每个浏览器添加了其他属性。IE 添加了 description 属性（其值
+                始终等于 message）和 number 属性（它包含内部错误号）。Firefox 添加了 fileName、lineNumber
+                和 stack（包含栈跟踪信息）属性。Safari 添加了 line（行号）、sourceId（内部错误号）和 sourceURL
+                属性。同样，为保证跨浏览器兼容，最好只依赖 message 属性。
+            
+            */
+
+            try {
+                let items1 = new Array(-20); // 抛出 RangeError 
+            } catch (err) {
+                console.error('An error haoppened', err);
+            }
+            try {
+                let obj = x; // 在 x 没有声明时会抛出 ReferenceError
+            } catch (err) {
+                console.error('An error haoppened', err);
+            }
+
+            try {
+                eval("a ++ b"); // 抛出 SyntaxError
+            } catch (err) {
+                console.error('An error haoppened', err);
+            }
+            try {
+                let o = new 10; // 抛出 TypeError 
+                console.log("name" in true); // 抛出 TypeError 
+                Function.prototype.toString.call("name"); // 抛出 TypeError
+            } catch (err) {
+                console.error('An error haoppened', err);
+            }
+        </script>
+    </body>
+</html>

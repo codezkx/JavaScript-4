@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JSON 对象</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            /* 
+                ，所有函数和原型成员都会有意地在结果中省略。此外，值为 undefined
+                    的任何属性也会被跳过。最终得到的就是所有实例属性均为有效 JSON 数据类型的表示。
+            */
+            let book = { 
+                title: "Professional JavaScript", 
+                authors: [ 
+                    "Nicholas C. Zakas", 
+                    "Matt Frisbie" 
+                ], 
+                edition: 4, 
+                year: 2017,
+                text: null,
+                undeF: undefined,
+                unText: 'undefined',
+                cb: function() {return 1},
+            }; 
+            let jsonText = JSON.stringify(book); // 会过滤函数和undefined(字符串不会过滤)
+            console.log(jsonText, 'jsonText1');
+            const jsonP = JSON.parse(jsonText);
+            console.log(jsonP)
+        </script>
+    </body>
+</html>

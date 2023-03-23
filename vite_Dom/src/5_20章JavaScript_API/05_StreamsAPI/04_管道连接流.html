@@ -1,0 +1,88 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>管道连接流</title> 
+        <style>
+            html, body {
+                padding: 0;
+                margin: 0;
+            }
+
+            div {
+                box-sizing: border-box;
+                width: 100px;
+                min-height: 20px;
+                padding: 0 10px;
+                margin: 10px 0;
+                color: #FFF;
+                background-color: #000;
+            }
+        </style>
+    </head> 
+    <body>
+        <div class="drag" draggable="true">1</div>
+        <input type="text" class="dragTarget" draggable="true">
+        <script>
+            async function* ints() {
+                for (let i = 0; i < 5; i++) {
+                    yield await new Promise((resolve) => setTimeout(resolve, 1000, [{a: 1}]));
+                }
+            }
+            const integerStream = new ReadableStream({
+                async start(controller) {
+                    for await (let chunk of ints()) {
+                        controller.enqueue(chunk);
+                    }
+                    controller.close();
+                }
+            });
+
+            const doublingStream = new TransformStream({
+                transform(chunk, controller) {
+                    controller.enqueue(chunk);
+                }
+            });
+
+
+            /* 
+                ReadableStream 接口的 pipeThrough() 方法提供了一种链式的方式，将当前流通过转换流或者其他任何一对可写/可读的流进行管道传输。
+                传输一个流通常在管道传输的时间内锁定这个流，以阻止其他 reader 锁定它。
+            
+            */
+            // // 通过管道连接流
+            // const pipedStream = integerStream.pipeThrough(doublingStream);
+            // // 从连接流的输出获得读取器
+            // const pipedStreamDefaultReader = pipedStream.getReader();
+            // (async function () {
+            //     while(true) {
+            //         const { done, value } = await pipedStreamDefaultReader.read();
+            //         if (done) {
+            //             break;
+            //         } else {
+            //             // console.log(value);
+            //         }
+            //     }
+            // })();
+
+            const writeableStream = new WritableStream({
+                write(value) {
+                    console.log(value);
+                }
+            })
+
+            /* 
+                使用 pipeTo()方法也可以将 ReadableStream 连接到 WritableStream。整个过程与使用 pipeThrough()类似：
+
+                ReadableStream 接口的 pipeTo() 方法通过管道将当前的 ReadableStream 中的数据传递给给定的 WritableStream 并且返回一个 Promise，promise 在传输成功完成时兑现，在遇到任何错误时则会被拒绝。
+            
+            */
+            const pipedStream = integerStream.pipeTo(writeableStream);
+
+
+
+        </script>
+    </body>
+</html>

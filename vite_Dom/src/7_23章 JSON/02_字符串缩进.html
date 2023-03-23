@@ -1,0 +1,57 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>字符串缩进</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            /* 
+                JSON.stringify()
+                    第三个参数  缩进和空格
+            */
+
+            let book = { 
+                title: "Professional JavaScript", 
+                0: 1,
+                authors: [ 
+                    "Nicholas C. Zakas", 
+                    "Matt Frisbie",
+                    undefined, // 处理成null
+                    null,
+                    function(){},  // 处理成null
+                ], 
+                o: {
+                    empt: undefined,
+                    cb: function() {},
+                    num: 1,
+                },
+                unT: undefined,
+                cb: function(){},
+                edition: 4, 
+                year: 2017 
+            };
+           
+            const jsonText = JSON.stringify(book , null, 4); // 数字 表示缩进4个字符
+            console.log(jsonText)
+            const jsonText1 = JSON.stringify(book , null, '   '); // 空格字符串时 多少个字符表示多少个字符缩进
+            console.log(jsonText1)
+            const jsonText2 = JSON.stringify(book , null, '-'); // 字符串表示格式化对象时前面的空格用‘-’表示
+            console.log(jsonText2)
+
+        </script>
+    </body>
+</html>

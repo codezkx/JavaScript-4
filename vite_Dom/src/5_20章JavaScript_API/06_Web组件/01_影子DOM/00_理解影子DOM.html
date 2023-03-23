@@ -1,0 +1,40 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>00_理解影子DOM</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <div class="red-text"> 
+            <p>Make me red!</p> 
+        </div> 
+        <div class="green-text"> 
+            <p>Make me green!</p> 
+        </div> 
+        <div class="blue-text"> 
+            <p>Make me blue!</p> 
+        </div>
+        <script>
+            /* 
+                影子 DOM 与 HTML 模板还是有区别的，主要表现在影子 DOM 的内容会实际渲染到页面上，而 HTML 模板的内容不会。
+                因为这跟在全局命名空间中定义变量没有太大区别。尽管知道这
+                    些样式与其他地方无关，所有 CSS 样式还会应用到整个 DOM。为此，就要保持 CSS 选择符足够特别，
+                    以防这些样式渗透到其他地方。但这也仅是一个折中的办法而已。理想情况下，应该能够把 CSS 限制在
+                    使用它们的 DOM 上：这正是影子 DOM 最初的使用场景。
+            */
+        </script>
+    </body>
+</html>

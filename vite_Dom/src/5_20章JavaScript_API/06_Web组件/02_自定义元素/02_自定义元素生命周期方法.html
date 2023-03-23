@@ -1,0 +1,75 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>添加Web组件内容</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            /* 
+                 constructor()：在创建元素实例或将已有 DOM 元素升级为自定义元素时调用。
+                 connectedCallback()：在每次将这个自定义元素实例添加到 DOM 中时调用。
+                 disconnectedCallback()：在每次将这个自定义元素实例从 DOM 中移除时调用。
+                 attributeChangedCallback()：在每次可观察属性的值发生变化时调用。在元素实例初始化时，初始值的定义也算一次变化。
+                 adoptedCallback()：在通过 document.adoptNode()将这个自定义元素实例移动到新文档对象时调用。
+            
+            */
+
+            class FooElement extends HTMLElement {
+                constructor(val) {
+                    super();
+                    console.log('ctor');
+                }
+
+                connectedCallback() {
+                    console.log('connected');
+                }
+
+                disconnectedCallback() {
+                    console.log('disconnected');
+                }
+
+                attributeChangedCallback(name, odlValue, newValue) {
+                    console.log('attributeChanged', name, odlValue, newValue);
+                }
+
+                adoptedCallback() {
+                    console.log('adopted');
+                }
+
+                static get observedAttributes() { // 触发attributeChangedCallback  https://developer.mozilla.org/zh-CN/docs/Web/Web_Components/Using_custom_elements#%E4%BD%BF%E7%94%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0
+                    return ['data-foo', 'data-foo2']; // 需要监听的name                
+                }
+            }
+            customElements.define('x-foo', FooElement);
+
+            const fooEl = document.createElement('x-foo');
+            const fooText = document.createTextNode('自定义元素');
+            fooEl.style.fontSize = '30px'
+            fooEl.appendChild(fooText);
+
+            // const observe = new MutationObserver( // 可观察属性
+            //     (mutationRecord) => console.log(mutationRecord)
+            // )
+            // observe.observe(fooEl, { attributes: true })
+            fooEl.setAttribute('data-foo', '自定义元素');
+            document.body.appendChild(fooEl);
+
+            // document.body.removeChild(fooEl);
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>02_使用影子DOM</title> 
+        <style> 
+        </style>
+    </head> 
+    <body>
+        
+        <script>
+            /* 
+                以下是可以容纳影子 DOM 的元素。
+                 任何以有效名称创建的自定义元素（参见 HTML 规范中相关的定义）
+                 <article>
+                 <aside>
+                 <blockquote>
+                 <body>
+                 <div>
+                 <footer>
+                 <h1>
+                 <h2>
+                 <h3>
+                 <h4>
+                 <h5>
+                 <h6>
+                 <header>
+                 <main>
+                 <nav>
+                 <p>
+                 <section>
+                 <span>
+
+                影子 DOM 是通过 attachShadow()方法创建并添加给有效 HTML 元素的。容纳影子 DOM 的元素
+                    被称为影子宿主（shadow host）。影子 DOM 的根节点被称为影子根（shadow root）。
+                创建影子DOM方法：
+                    attachShadow()
+                
+                注意： attachShadow()方法需要一个shadowRootInit 对象，返回影子DOM的实例。shadowRootInit
+                    对象必须包含一个 mode 属性，值为"open"或"closed"。对"open"影子 DOM的引用可以通过 shadowRoot
+                    属性在 HTML 元素上获得，而对"closed"影子 DOM 的引用无法这样获取。
+            */
+           
+            for (let color of ['red', 'green',  'blue']) {
+                const div = document.createElement('div');
+                const shadowRoot = div.attachShadow({ mode: 'open' });
+                /* 
+                    使用影子DOM
+                */
+                document.body.appendChild(div);
+                shadowRoot.innerHTML =  `
+                    <p>Make me ${color}</p> 
+                    <style> 
+                        p { 
+                        color: ${color}; 
+                        } 
+                    </style>
+                `;
+                for (let eleemnt of document.querySelector('div')) {
+                    console.log(element.shadowRoot)
+                }
+            }
+        </script>
+    </body>
+</html>

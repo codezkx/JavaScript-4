@@ -1,0 +1,51 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>创建自定义元素</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            // document.body.innerHTML = `
+            //     <x-foo>春眠不觉晓，处处闻啼鸟。</x-foo>
+            // `
+            // const xFooEl = document.querySelector('x-foo');
+            // console.log(xFooEl);
+            // console.log(xFooEl instanceof HTMLElement);
+            /**
+             * 创建自定义元素
+             *  customElements 对象创建元素
+             * 
+             */
+            console.log(window.customElements);
+            class FooElement extends HTMLDivElement {
+                constructor() {
+                    super();
+                    console.log('x-foo');
+                }
+            }
+            customElements.define('x-foo', FooElement, { extends: 'div' });
+            document.body.innerHTML = `
+                <div is="x-foo">春眠不觉晓，处处闻啼鸟。</div> 
+                <div is="x-foo">春眠不觉晓，处处闻啼鸟。</div> 
+                <div is="x-foo">春眠不觉晓，处处闻啼鸟。</div>
+            `
+
+
+
+        </script>
+    </body>
+</html>

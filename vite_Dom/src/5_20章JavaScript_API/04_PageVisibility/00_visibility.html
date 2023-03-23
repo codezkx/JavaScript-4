@@ -1,0 +1,44 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Page Visibility</title> 
+        <style>
+            html, body {
+                padding: 0;
+                margin: 0;
+            }
+
+            div {
+                box-sizing: border-box;
+                width: 100px;
+                min-height: 20px;
+                padding: 0 10px;
+                margin: 10px 0;
+                color: #FFF;
+                background-color: #000;
+            }
+        </style>
+    </head> 
+    <body>
+        <div class="drag" draggable="true">1</div>
+        <input type="text" class="dragTarget" draggable="true">
+        <script>
+            /* 
+                document.visibilityState 的值是以下三个字符串之一：
+                     "hidden": 此时页面对用户不可见。即文档处于背景标签页或者窗口处于最小化状态，或者操作系统正处于 '锁屏状态' .
+                     "visible": 此时页面内容至少是部分可见。即此页面在前景标签页中，并且窗口没有最小化。
+                     "prerender":页面此时正在渲染中，因此是不可见的 (considered hidden for purposes of document.hidden). 文档只能从此状态开始，永远不能从其他值变为此状态。注意：浏览器支持是可选的。
+            
+            */
+            const visibility = document.visibilityState
+            console.log(visibility)
+            document.addEventListener('visibilitychange', (e) => {
+                const pageStatus = document.hidden ? '页面隐藏了' : '页面显示了';
+                console.log(pageStatus);
+            })
+        </script>
+    </body>
+</html>

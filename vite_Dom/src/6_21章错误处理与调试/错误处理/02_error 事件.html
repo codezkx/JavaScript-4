@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>eroor 事件</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+
+            /* 
+                onerror事件参数
+                    1、错误消息；2、发生错误的URL 3、行号
+            
+            */
+            window.onerror = function (message, url, line) {
+                console.log(message, url, line);
+                return false;
+            }
+
+            /* 
+                浏览器在使用这个事件处理错误时存在明显差异。在 IE 中发生 error 事件时，正
+                常代码会继续执行，所有变量和数据会保持，且可以在 onerror 事件处理程序中访问。
+                然而在 Firefox 中，正常代码会执行会终止，错误发生之前的所有变量和数据会被销毁，
+                导致很难真正分析处理错误。
+                            
+            */
+            // 图片error事件
+            const image = new Image(); 
+            image.addEventListener("load", (event) => { 
+            console.log("Image loaded!"); 
+            }); 
+            image.addEventListener("error", (event) => { 
+            console.log("Image not loaded!"); 
+            }); 
+            image.src = "doesnotexist.gif"; // 不存在，资源会加载失败
+            
+        </script>
+    </body>
+</html>

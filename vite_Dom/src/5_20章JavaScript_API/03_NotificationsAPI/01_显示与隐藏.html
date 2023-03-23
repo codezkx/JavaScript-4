@@ -1,0 +1,61 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>显示与隐藏</title> 
+        <style>
+            html, body {
+                padding: 0;
+                margin: 0;
+            }
+
+            div {
+                box-sizing: border-box;
+                width: 100px;
+                min-height: 20px;
+                padding: 0 10px;
+                margin: 10px 0;
+                color: #FFF;
+                background-color: #000;
+            }
+        </style>
+    </head> 
+    <body>
+        <div class="drag" draggable="true">1</div>
+        <input type="text" class="dragTarget" draggable="true">
+        <script>
+            // Notification.requestPermission().then(permission => {
+            //     console.log(Notification.permission);
+                
+            // });
+
+            const permission = new Notification('Titile Text!', {
+                body: 'Body text!',
+                vibrate: true,
+            })
+
+            permission.addEventListener('click', (e) => {
+                console.log(e)
+            })
+        
+
+
+            /* 
+                 onshow 在通知显示时触发；
+                 onclick 在通知被点击时触发；
+                 onclose 在通知消失或通过 close()关闭时触发；
+                 onerror 在发生错误阻止通知显示时触发。
+                下面的代码将每个生命周期事件都通过日志打印了出来：
+            */
+            const n = new Notification('foo'); 
+            n.onshow = () => console.log('Notification was shown!'); 
+            // n.onclick = () => console.log('Notification was clicked!'); 
+            // n.onclose = () => console.log('Notification was closed!'); 
+            // n.onerror = () => console.log('Notification experienced an error!');
+           
+            
+        </script>
+    </body>
+</html>

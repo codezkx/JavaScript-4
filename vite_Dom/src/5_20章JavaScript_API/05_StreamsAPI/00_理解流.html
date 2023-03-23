@@ -1,0 +1,47 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Page Visibility</title> 
+        <style>
+            html, body {
+                padding: 0;
+                margin: 0;
+            }
+
+            div {
+                box-sizing: border-box;
+                width: 100px;
+                min-height: 20px;
+                padding: 0 10px;
+                margin: 10px 0;
+                color: #FFF;
+                background-color: #000;
+            }
+        </style>
+    </head> 
+    <body>
+        <div class="drag" draggable="true">1</div>
+        <input type="text" class="dragTarget" draggable="true">
+        <script>
+            /* 
+                流的基本单位是块（chunk）。块可是任意数据类型，但通常是定型数组。每个块都是离散的流片段，可以作为一个整体来处理。
+
+                Stream API 定义了三种流。
+                     可读流：可以通过某个公共接口读取数据块的流。数据在内部从底层源进入流，然后由消费者
+                    （consumer）进行处理。
+                     可写流：可以通过某个公共接口写入数据块的流。生产者（producer）将数据写入流，数据在内
+                    部传入底层数据槽（sink）。
+                     转换流：由两种流组成，可写流用于接收数据（可写端），可读流用于输出数据（可读端）。这
+                    两个流之间是转换程序（transformer），可以根据需要检查和修改流内容
+
+                块、内部队列和反压
+                     流出口处理数据的速度比入口提供数据的速度快。流出口经常空闲（可能意味着流入口效率较低），但只会浪费一点内存或计算资源，因此这种流的不平衡是可以接受的。
+                     流入和流出均衡。这是理想状态。
+                     流入口提供数据的速度比出口处理数据的速度快。这种流不平衡是固有的问题。此时一定会在某个地方出现数据积压，流必须相应做出处理。
+            */
+        </script>
+    </body>
+</html>

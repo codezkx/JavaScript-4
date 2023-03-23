@@ -1,0 +1,65 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>转换流</title> 
+        <style>
+            html, body {
+                padding: 0;
+                margin: 0;
+            }
+
+            div {
+                box-sizing: border-box;
+                width: 100px;
+                min-height: 20px;
+                padding: 0 10px;
+                margin: 10px 0;
+                color: #FFF;
+                background-color: #000;
+            }
+        </style>
+    </head> 
+    <body>
+        <div class="drag" draggable="true">1</div>
+        <input type="text" class="dragTarget" draggable="true">
+        <script>
+            async function* ints() {
+                for (let i = 0; i < 5; i++) {
+                    yield await new Promise((resolve) => setTimeout(resolve, 1000, [{a: 1}]));
+                }
+            }
+            const { readable, writable } = new TransformStream({
+                transform(chunk, controller) { // 转换器
+                    console.log(controller)
+                    controller.enqueue(chunk) //   enqueue() 方法将给定的分块排入流的可读端。
+                }
+            });
+            const readableStreamDefaultReader = readable.getReader();
+            const writableStreamDefaultWriter = writable.getWriter();
+
+            // 消费者
+            (async function () {
+                while(true) {
+                    const { done, value } = await readableStreamDefaultReader.read()
+                    if (done) {
+                        break;
+                    } else {
+                        console.log(value, 'readable')
+                    }
+                }
+            })();
+
+            // 生产者
+            (async function () {
+                for await (let chunk of ints()) {
+                    await writableStreamDefaultWriter.ready;
+                    writableStreamDefaultWriter.write(chunk); // 写入流
+                }
+            })()
+
+        </script>
+    </body>
+</html>

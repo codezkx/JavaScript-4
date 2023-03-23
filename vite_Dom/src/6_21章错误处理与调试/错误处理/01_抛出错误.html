@@ -1,0 +1,47 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>抛出错误</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            try {
+                throw new SyntaxError("I don't like your syntax."); 
+                throw new InternalError("I can't do that, Dave."); 
+                throw new TypeError("What type of variable do you take me for?"); 
+                throw new RangeError("Sorry, you just don't have the range."); 
+                throw new EvalError("That doesn't evaluate."); 
+                throw new URIError("Uri, is that you?"); 
+                throw new ReferenceError("You didn't cite your references properly.");
+            } catch(err) {
+                console.error(err);
+            }
+
+            class CustomError extends Error {
+                constructor(message) {
+                    super(message);
+                    this.name = 'CustomError';
+                    this.message = message;
+                }
+            }
+
+            throw new CustomError('My message');
+
+            
+        </script>
+    </body>
+</html>

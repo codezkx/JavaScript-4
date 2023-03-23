@@ -1,0 +1,53 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DocumentFragment</title> 
+        <style>
+            html, body {
+                padding: 0;
+                margin: 0;
+            }
+        </style>
+    </head> 
+    <body>
+        <template>
+            <p>我是template模版</p>
+            <p>我是template模版</p>
+            <p>我是template模版</p>
+        </template>
+        <div>
+
+        </div>
+        <script>
+            const templateEl = document.querySelector('template')
+            const templateContentO = templateEl.content;  // 通过<template>元素的 content 属性可以取得这个 DocumentFragment 的引用;
+            // console.log( templateContentO); // #document-fragment
+            // console.log(document.querySelector('p')); // null
+            // console.log(templateContentO.querySelector('p'));  //  p
+            
+            // 第一种方式
+            const documentFragment = new DocumentFragment();
+            for (let i = 0; i < 3; i++) {
+                const p  = document.createElement('p');
+                const ptetx = document.createTextNode(`p节点${i}`)
+                p.appendChild(ptetx)
+                documentFragment.appendChild(p)
+            }
+            const divEl = document.querySelector('div');
+            divEl.appendChild(documentFragment);
+            document.body.removeChild(templateEl);
+
+            // 第二种方式
+            divEl.appendChild(templateContentO);
+
+            //  第三种方式
+            console.log(document.importNode(templateContentO, true), templateContentO)
+            const importNode = document.importNode(templateContentO, true)
+            // divEl.appendChild(importNode); // 相同的template模版的content会直接覆盖上一次的DOM
+
+        </script>
+    </body>
+</html>

@@ -28,40 +28,68 @@
         <!-- <div class="dragTarget" draggable="true" style="width: 100px; height: 100px; background-color: aqua;"></div> -->
         <input type="text" class="dragTarget" draggable="true">
         <script>
+            /* 
+                dropEffect 属性可以告诉浏览器允许哪种放置行为。这个属性有以下 4 种可能的值。
+                     "none"：被拖动元素不能放到这里。这是除文本框之外所有元素的默认值。
+                     "move"：被拖动元素应该移动到放置目标。
+                     "copy"：被拖动元素应该复制到放置目标。
+                     "link"：表示放置目标会导航到被拖动元素（仅在它是 URL 的情况下）
+                
+                effectAllowed 属性表示对被拖动元素是否允许 dropEffect。
+                     "uninitialized"：没有给被拖动元素设置动作。
+                     "none"：被拖动元素上没有允许的操作。
+                     "copy"：只允许"copy"这种 dropEffect。 
+                     "link"：只允许"link"这种 dropEffect。 
+                     "move"：只允许"move"这种 dropEffect。 
+                     "copyLink"：允许"copy"和"link"两种 dropEffect。 
+                     "copyMove"：允许"copy"和"move"两种 dropEffect。 
+                     "linkMove"：允许"link"和"move"两种 dropEffect。 
+                     "all"：允许所有 dropEffect。
+                    必须在 ondragstart 事件处理程序中
+                
+                 addElement(element)：为拖动操作添加元素。这纯粹是为了传输数据，不会影响拖动操作的外观。在本书写作时，还没有浏览器实现这个方法。
+                 clearData(format)：清除以特定格式存储的数据。
+                 setDragImage(element, x, y)：允许指定拖动发生时显示在光标下面的图片。这个方法接收 3 个参数：要显示的 HTML 元素及标识光标位置的图片上的 x 和 y 坐标。这里的 HTML 元素
+                    可以是一张图片，此时显示图片；也可以是其他任何元素，此时显示渲染后的元素。
+                 types：当前存储的数据类型列表。这个集合类似数组，以字符串形式保存数据类型，比如"text"。
+            */
+
             const drag = document.querySelector('.drag');
             const dragTarget = document.querySelector('.dragTarget');
             // 拖拽元素
             drag.addEventListener('dragstart', (e) => {
                 // e.preventDefault()
                 e.dataTransfer.setData('text', JSON.stringify({a: 2}))
-                console.log(e.dataTransfer.getData("Text"))
+                console.log(e.dataTransfer.getData("Text"));
                 console.log(e, 'dragStart');
             });
             // drag.addEventListener('drag', (e) => {
             //     console.log(e, 'drag');
             // });
             // drag.addEventListener('dragend', (e) => {
-            //     // e.preventDefault()
-            //     console.log(e, 'dragend')
+            //     // e.preventDefault();
+            //     console.log(e, 'dragend');
             // })
 
             // 目标元素
             dragTarget.addEventListener('dragenter', (e) => {
-                e.preventDefault()
-                e.dataTransfer.dropEffect = 'copy';
-                e.dataTransfer.effectAllowed = 'copy'
-                console.log(e.dataTransfer, 'dataTransfer')
-                console.log(e.dataTransfer.getData('Text'))
+                // e.preventDefault();
+                // e.dataTransfer.dropEffect = 'copy';
+                // e.dataTransfer.effectAllowed = 'copy';
+                // console.log(e.dataTransfer, 'dataTransfer');
+                // console.log(e.dataTransfer.getData('Text'));
             });
-            dragTarget.addEventListener('dragover', (e) => {
-                console.log(e, 'dragover');
-            });
-            dragTarget.addEventListener('dragleave', (e) => {
-                e.preventDefault()
-                console.log(e, 'dragleave');
-            });
+            // dragTarget.addEventListener('dragover', (e) => {
+            //     console.log(e, 'dragover');
+            // });
+            // dragTarget.addEventListener('dragleave', (e) => {
+            //     e.preventDefault();
+            //     console.log(e, 'dragleave');
+            // });
             dragTarget.addEventListener('drag', (e) => {
-                e.preventDefault()
+                // e.preventDefault()
+                e.dataTransfer.dropEffect = 'copy';
+                e.dataTransfer.effectAllowed = 'copy';
                 console.log(e, 'drag');
             });
         </script>
