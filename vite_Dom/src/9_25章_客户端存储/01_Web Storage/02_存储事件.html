@@ -1,0 +1,40 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Storage类型</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            // 使用方法存储数据
+            localStorage.setItem("name", "Nicholas"); 
+            localStorage.setItem("name1", "Nicholas1"); 
+
+            // 使用属性存储数据
+            localStorage.book = "Professional JavaScript"; 
+            // 使用方法取得数据
+            let name = localStorage.getItem("name"); 
+            // 使用属性取得数据
+            let book = localStorage.book;
+
+            // 删除local item
+            localStorage.removeItem('name')
+
+            // 清除所有的localstorage
+            localStorage.clear()
+        </script>
+    </body>
+</html>

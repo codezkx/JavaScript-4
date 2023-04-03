@@ -1,0 +1,54 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Storage类型</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            // 写入会话存储   
+            sessionStorage.setItem('name', '张三');
+            // key-> book   value -> 李四  clearSelection
+            sessionStorage.book = '李四';
+
+            // 读取会话存储
+            console.log(sessionStorage.getItem('name'), 'name');
+            console.timeLog(sessionStorage.book, 'book');
+
+            // 获取会话长度
+            console.log(sessionStorage.length, ' length');
+
+            // 读取key
+            console.log(sessionStorage.key(0), 'key'); // name
+
+            // 修改会话存储
+            sessionStorage.setItem('name', '张三1');
+            console.log(sessionStorage.getItem('name'), 'name'); // 张三1 name
+
+            // 删除会话储存
+            // delete sessionStorage.name;
+            // console.log(sessionStorage.getItem('name'), 'name'); // null name
+
+            // sessionStorage.removeItem('book')
+            // console.log(sessionStorage.book, 'book')
+
+            // 删除所有sessionStorage
+            sessionStorage.clear();
+
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>子cookie</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            class CookieUtil {
+                static get(name, subName, existenceChildCookie) {
+                    let subcookies = CookieUtil.getAll(name, existenceChildCookie);
+                    return subcookies && subcookies[subName];
+                }
+
+                static getAll(name, existenceChildCookie) {
+                    let cookieName = `${encodeURIComponent(name)}=`,
+                        cookieStart = document.cookie.indexOf(cookieName),
+                        cookieValue = null,
+                        cookieEnd,
+                        subcookies,
+                        parts,
+                        result= [];
+                    if (cookieStart > -1) {
+                        cookieEnd = document.cookie.indexOf(';', cookieStart);
+                        if (cookieEnd === -1) {
+                            cookieEnd = document.cookie.length;
+                        }
+                        cookieValue = decodeURIComponent(document.cookie.substring(
+                            cookieStart + cookieName.length, cookieEnd));
+                        if (cookieValue.length > 0 && existenceChildCookie) {
+                            subcookies = cookieValue.split('&');
+
+                            subcookies.forEach((value, i) => {
+                                parts = subcookies[i].split("=");
+                                result[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
+                            });
+                            return result
+                        }
+                        return cookieValue;
+                    }
+                }
+
+                static set(name, subName, value, expires, path, domain, secure) {
+                    let subcookies = CookieUtil.getAll(name, true);
+                    subcookies[subName] = value;
+                    CookieUtil.setAll(name, subcookies, expires, path, domain, secure);
+                }
+
+                /* 
+                    subcookies: {
+                        cookie0: value,
+                        cookie1: value,
+                        cookie2: value,
+                        cookie3: value,
+                    }
+                */
+                static setAll(name, subcookies, expires, path, domain, secure) {
+                    let cookieText = encodeURIComponent(name) + "=",
+                        subcookieParts = [],
+                        subName;
+                    if (Array.isArray(subcookies) && subcookies.length > 0) {
+                        Object.keys(subcookies).forEach(k => {
+                            subcookieParts.push(
+                                `${encodeURIComponent(k)}=${encodeURIComponent(subcookies[k])}`
+                            );
+                        });
+                    }
+                    
+                    if (subcookieParts.length > 0) {
+                        cookieText += subcookieParts.join('&');
+                        if (expires instanceof Date) {
+                            cookieText += `; expires=${expires}`; 
+                        }
+                        if (path) {
+                            cookieText += `; path=${path}`;
+                        }
+                        if (domain) {
+                            cookieText += `; domian=${domain}`;
+                        }
+                        if (secure) {
+                            cookieText += `; secure=${secure}`;
+                        }
+                        return false
+                    }
+                    cookieText += `; expires=${(new Date(0)).toGMTString() }`; 
+                    
+
+                }
+
+                static remove(name, subName, path, domain, secure) {
+                    let subcookies = CookieUtil.getAll(name, true);
+                    if (subcookies) {
+                        delete subcookies[subName];
+                        CookieUtil.setAll(name, subcookies, null, path, domain, secure)
+
+                    }
+                }
+
+                static removeAll(name, path, domain, secure) {
+                    CookieUtil.setAll(name, null, new Date(0), path, domain, secure)
+                }
+            }
+
+            let data = CookieUtil.get("data", 'name',true);
+            console.log(data)
+            CookieUtil.set("data", "book", "Professional JavaScript");
+        </script>
+    </body>
+</html>
