@@ -1,0 +1,12 @@
+﻿##过滤文件夹
+.idea
+.vscode
+.happypacks
+/node_modules
+/app/*
+/dist/*
+!/app/src
+npm-debug.log
+**/.DS_Store
+.history/
+/build/tempConfig.json
