@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>使用XHR</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            /* 
+                 loadstart：在接收到响应的第一个字节时触发。
+                 progress：在接收响应期间反复触发。
+                    包含 3 个额外属性
+                        lengthComputable: 是一个布尔值，表示进度信息是否可用；
+                        loaded: 是接收到的字节数
+                        totalSize: 是响应的 ContentLength 头部定义的总字节数。
+                 error：在请求出错时触发。
+                 abort：在调用 abort()终止连接时触发。
+                 load：在成功接收完响应时触发。 无论状态码是什么，都会触发 load 事件。
+                 loadend：在通信完成时，且在 error、abort 或 load 之后触发。
+            */
+           
+            const xhr = new XMLHttpRequest();
+            xhr.onabort = function(e) {
+                console.log(e, 'onabort'); //  不同浏览器可能没有实现Event
+            }
+            
+            xhr.open("get", "altevents.php", true);
+            xhr.onload = function(e) {
+                console.log(e, 'onload'); //  不同浏览器可能没有实现Event
+                console.log(xhr.status);
+            }
+            xhr.onprogress = function(event) {
+                console.log(event, 'onprogress');
+            }
+            xhr.send(null);
+            // xhr.abort(); // 取消请求
+        </script>
+    </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>跨源资源共享</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            }  
+        </style>
+    </head> 
+    <body>
+        <script>
+            const h = new Headers();
+            const m = new Map();
+           // 设置键
+            h.set('foo', 'bar'); 
+            m.set('foo', 'bar'); 
+            // 检查键
+            console.log(h.has('foo')); // true 
+            console.log(m.has('foo')); // true 
+            console.log(h.has('qux')); // false 
+            console.log(m.has('qux')); // false 
+            // 获取值
+            console.log(h.get('foo')); // bar 
+            console.log(m.get('foo')); // bar 
+            // 更新值
+            h.set('foo', 'baz'); 
+            m.set('foo', 'baz');
+            // 取得更新的值
+            console.log(h.get('foo')); // baz 
+            console.log(m.get('foo')); // baz 
+            // 删除值
+            h.delete('foo'); 
+            m.delete('foo');
+
+            // Headers 和 Map 都可以使用一个可迭代对象来初始化
+            const seed = [['foo', 'bar']];
+            const h1 = new Headers(seed);
+            const m1 = new Map(seed);
+            console.log(h1.has('foo')); // true
+            console.log(m1.has('foo')) // true
+            // Headers和Map的 keys()、values()和 entries()迭代器接口
+            const seed1 = [['foo', 'bar'], ['baz', 'qux']];
+            let h2 = new Headers(seed1);
+            let m2 = new Map(seed1);
+            console.log(...h2.keys()); // foo, baz 
+            console.log(...m2.keys()); // foo, baz 
+            console.log(...h2.values()); // bar, qux 
+            console.log(...m2.values()); // bar, qux 
+            console.log(...h2.entries()); // ['foo', 'bar'], ['baz', 'qux'] 
+            console.log(...m2.entries()); // ['foo', 'bar'], ['baz', 'qux']
+        </script>
+    </body>
+</html>

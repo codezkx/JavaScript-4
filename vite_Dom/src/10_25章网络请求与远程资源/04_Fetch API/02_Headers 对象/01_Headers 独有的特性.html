@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>跨源资源共享</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            }  
+        </style>
+    </head> 
+    <body>
+        <script>
+            let seed = {foo: 'bar'}; 
+            let h = new Headers(seed); 
+            console.log(h.get('foo')); // bar 
+            let m = new Map(seed); 
+            // TypeError: object is not iterable
+
+            let h1 = new Headers(); 
+            h1.append('foo', 'bar'); 
+            console.log(h1.get('foo')); // "bar"
+            h1.append('foo', 'baz'); 
+            console.log(h.get('foo')); // "bar, baz"
+        </script>
+    </body>
+</html>

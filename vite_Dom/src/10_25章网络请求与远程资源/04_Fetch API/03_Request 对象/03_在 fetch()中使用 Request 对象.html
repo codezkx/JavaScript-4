@@ -1,0 +1,37 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>00_创建Request对象</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            }  
+        </style>
+    </head> 
+    <body>
+        <script>
+            // let r = new Request('https://foo.com'); 
+            // // 向 foo.com 发送 GET 请求
+            // fetch(r); 
+            // // 向 foo.com 发送 POST 请求
+            // fetch(r, { method: 'POST' });
+
+            // 要想基于包含请求体的相同 Request 对象多次调用 fetch()，必须在第一次发送 fetch()请求前调用 clone()：
+            let r = new Request('https://foo.com', 
+            { method: 'POST', body: 'foobar' }); 
+            // 3 个都会成功
+            fetch(r.clone());
+            fetch(r.clone());
+            fetch(r);
+        </script>
+    </body>
+</html>

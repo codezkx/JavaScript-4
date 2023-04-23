@@ -1,0 +1,50 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> 克隆 Request 对象</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            }  
+        </style>
+    </head> 
+    <body>
+        <script>
+            /* 
+                克隆 Request 对象
+            */
+            // 第一种方式
+            const r1 = new Request('https://foo.com');
+            // 创建r1的副本  r2和r1对比是不相同的对象，
+            const r2 = new Request(r1) 
+            console.log(r1)
+            console.log(r2)
+
+            let r3 = new Request('https://foo.com',  { method: 'POST', body: 'foobar' }); 
+            // 当r3init中设置了body那么副本r4 bodyUsed 为false   r3  bodyUsed 为true 表示body已读 
+            let r4 = new Request(r3);
+            console.log(r3.bodyUsed, 'bodyUsed1');
+            console.log(r4.bodyUsed, 'bodyUsed2');
+
+            // 第二种方式
+            let r5 = new Request('https://foo.com', { method: 'POST', body: 'foobar' }); 
+            let r6 = r1.clone(); // 不会读取r5的 body属性   所以 r5 bodyUsed 为false。不能克隆body已读取的Request,否则就会报错
+            console.log(r1.bodyUsed); // false 
+            console.log(r2.bodyUsed); // false
+
+            let _r = new Request('https://foo.com', { method: 'POST', body: 'foobar' });
+            // r.clone()  无报错
+            // _r.text(); // 设置 bodyUsed 为 true 
+            // _r.clone();  //  Failed to execute 'clone' on 'Request'
+        </script>
+    </body>
+</html>

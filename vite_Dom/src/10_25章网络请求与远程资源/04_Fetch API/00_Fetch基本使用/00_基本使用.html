@@ -1,0 +1,39 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>跨源资源共享</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+            // 1、分派请求
+            const r = fetch('/bar');
+            console.log(r); 
+                
+            fetch('bar.txt')
+                .then((response) => {
+                    // 读取响应 
+                    console.log(response, 'response');
+
+                    const text = response.text(); // 返回一个期约
+                    console.log(text, 'text');
+                    text.then(data => {
+                        console.log(data); // 读取响应数据
+                    })
+                })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>00_创建Request对象</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            }  
+        </style>
+    </head> 
+    <body>
+        <script>
+            console.log(new Request('https://foo.com', { method: 'POST' })); 
+            // Request { 
+                // bodyUsed: false 
+                // cache: "default" 
+                // credentials: "same-origin" 
+                // destination: "" 
+                // headers: Headers {} 
+                // integrity: "" 
+                // keepalive: false 
+                // method: "POST"
+                // mode: "cors" 
+                // redirect: "follow" 
+                // referrer: "about:client" 
+                // referrerPolicy: "" 
+                // signal: AbortSignal {aborted: false, onabort: null} 
+                // url: "https://foo.com/"
+            // }
+        </script>
+    </body>
+</html>

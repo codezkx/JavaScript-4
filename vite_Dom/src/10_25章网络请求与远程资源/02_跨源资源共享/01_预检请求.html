@@ -1,0 +1,48 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>跨源资源共享</title> 
+        <style> 
+            .red-text { 
+             color: red; 
+            } 
+            .green-text { 
+             color: green; 
+            } 
+            .blue-text { 
+             color: blue; 
+            } 
+        </style>
+    </head> 
+    <body>
+        <script>
+
+            /* 
+                跨域 XHR 对象允许访问 status 和 statusText 属性，也允许同步请求。出于安全考虑，跨域 XHR对象也施加了一些额外限制。
+           跨域 XHR 对象允许访问 status 和 statusText 属性，也允许同步请求。出于安全考虑，跨域 XHR对象也施加了一些额外限制。
+                 不能使用 setRequestHeader()设置自定义头部。
+                 不能发送和接收 cookie。 
+                 getAllResponseHeaders()方法始终返回空字符串。
+            
+            */
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() { 
+                if (xhr.readyState == 4) { 
+                    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) { 
+                        alert(xhr.responseText); 
+                    } else { 
+                        alert("Request was unsuccessful: " + xhr.status); 
+                    } 
+                } 
+            };
+            xhr.open("get", "http://api.alice.com/cors", true);
+            xhr.send(null);
+            // xhr.abort(); // 取消请求
+
+            
+        </script>
+    </body>
+</html>
